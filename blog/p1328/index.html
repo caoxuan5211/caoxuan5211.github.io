@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>洛谷 P1328 | 怪话怪的博客</title>
 <meta name="keywords" content="problem">
 <meta name="description" content="题目
@@ -81,16 +81,16 @@ int main()
 优化
 看了别人的题解，大多是用一个二维[5][5]的数组存储对局输赢，后面处理简单一些。">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/blog/p1328/">
+<link rel="canonical" href="https://caoxuan5211.github.io/blog/p1328/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.5e935f5b7f487c9a071a7531301939cbc80dfe36e1273712cf831df2b5d805fc.css" integrity="sha256-XpNfW39IfJoHGnUxMBk5y8gN/jbhJzcSz4Md8rXYBfw=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://caoxuan5211.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://caoxuan5211.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://caoxuan5211.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://caoxuan5211.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://caoxuan5211.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/blog/p1328/">
+<link rel="alternate" hreflang="en" href="https://caoxuan5211.github.io/blog/p1328/">
 <noscript>
     <style>
         #theme-toggle,
@@ -127,7 +127,145 @@ int main()
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:url" content="https://caoxuan5211.github.io/blog/p1328/">
+  <meta property="og:site_name" content="怪话怪的博客">
+  <meta property="og:title" content="洛谷 P1328">
+  <meta property="og:description" content="题目 思路 数字化选择方式
+纯手抄一个map&lt;pair&lt;int, int&gt;, int&gt; mp用来记录出拳结果。如mp[{2,0}] = 2;表示b赢了
+直接取余数组处理得到结果
+#include &lt;bits/stdc&#43;&#43;.h&gt; using namespace std; int main() { // 0 表示 剪刀， // 1 表示 石头， // 2 表示 布， // 3 表示 蜥蜴人， // 4 表示 斯波克 // 结果0表示平局，1表示a赢，2表示b赢 map&lt;pair&lt;int, int&gt;, int&gt; mp; int n,na,nb; int result[3]={0}; //0无意义，1为a分数，2为b分数 cin &gt;&gt; n &gt;&gt; na &gt;&gt; nb; vector&lt;int&gt; a(na),b(nb); for (int i=0;i&lt;na;i&#43;&#43;) { cin &gt;&gt; a[i]; } for (int i=0;i&lt;nb;i&#43;&#43;) { cin &gt;&gt; b[i]; } for(int i=0;i&lt;5;i&#43;&#43;) { mp[{i,i}] = 0; } mp[{2,0}] = 2; mp[{3,0}] = 2; mp[{3,1}] = 2; mp[{4,2}] = 2; mp[{4,3}] = 2; mp[{1,0}] = 1; mp[{2,1}] = 1; mp[{3,2}] = 1; mp[{4,0}] = 1; mp[{4,1}] = 1; mp[{0,2}] = 1; mp[{0,3}] = 1; mp[{1,3}] = 1; mp[{2,4}] = 1; mp[{3,4}] = 1; mp[{0,1}] = 2; mp[{1,2}] = 2; mp[{2,3}] = 2; mp[{0,4}] = 2; mp[{1,4}] = 2; for(int i=0;i&lt;n;i&#43;&#43;) { int xi = i%na; int x = a[i%na]; int y = b[i%nb]; result[mp[{x,y}]]&#43;&#43;; } cout &lt;&lt; result[1] &lt;&lt; &#34; &#34; &lt;&lt; result[2] &lt;&lt; endl; return 0; } 优化 看了别人的题解，大多是用一个二维[5][5]的数组存储对局输赢，后面处理简单一些。">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2025-09-23T00:00:00+08:00">
+    <meta property="article:modified_time" content="2025-09-23T00:00:00+08:00">
+    <meta property="article:tag" content="Problem">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="洛谷 P1328">
+<meta name="twitter:description" content="题目
+思路
+
+
+数字化选择方式
+
+
+纯手抄一个map&lt;pair&lt;int, int&gt;, int&gt; mp用来记录出拳结果。如mp[{2,0}] = 2;表示b赢了
+
+
+直接取余数组处理得到结果
+
+
+#include &lt;bits/stdc&#43;&#43;.h&gt;
+using namespace std;
+int main()
+{
+    // 0 表示 剪刀，
+    // 1 表示 石头，
+    // 2 表示 布，
+    // 3 表示 蜥蜴人，
+    // 4 表示 斯波克
+    // 结果0表示平局，1表示a赢，2表示b赢
+    map&lt;pair&lt;int, int&gt;, int&gt; mp;
+    int n,na,nb;
+    int result[3]={0}; //0无意义，1为a分数，2为b分数
+    cin &gt;&gt; n &gt;&gt; na &gt;&gt; nb;
+    vector&lt;int&gt; a(na),b(nb);
+    for (int i=0;i&lt;na;i&#43;&#43;)
+    {
+        cin &gt;&gt; a[i];
+    }
+    for (int i=0;i&lt;nb;i&#43;&#43;)
+    {
+        cin &gt;&gt; b[i];
+    }
+    for(int i=0;i&lt;5;i&#43;&#43;)
+    {
+        mp[{i,i}] = 0;
+    }
+    mp[{2,0}] = 2;
+    mp[{3,0}] = 2;
+    mp[{3,1}] = 2;
+    mp[{4,2}] = 2;
+    mp[{4,3}] = 2;
+    mp[{1,0}] = 1;
+    mp[{2,1}] = 1;
+    mp[{3,2}] = 1;
+    mp[{4,0}] = 1;
+    mp[{4,1}] = 1;
+    mp[{0,2}] = 1;
+    mp[{0,3}] = 1;
+    mp[{1,3}] = 1;
+    mp[{2,4}] = 1;
+    mp[{3,4}] = 1;
+    mp[{0,1}] = 2;
+    mp[{1,2}] = 2;
+    mp[{2,3}] = 2;
+    mp[{0,4}] = 2;
+    mp[{1,4}] = 2;
+    for(int i=0;i&lt;n;i&#43;&#43;)
+    {
+        int xi = i%na;
+        int x = a[i%na];
+        int y = b[i%nb];
+        result[mp[{x,y}]]&#43;&#43;;
+    }
+    cout &lt;&lt; result[1] &lt;&lt; &#34; &#34; &lt;&lt; result[2] &lt;&lt; endl;
+    return 0;
+}
+
+优化
+看了别人的题解，大多是用一个二维[5][5]的数组存储对局输赢，后面处理简单一些。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://caoxuan5211.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "洛谷 P1328",
+      "item": "https://caoxuan5211.github.io/blog/p1328/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "洛谷 P1328",
+  "name": "洛谷 P1328",
+  "description": "题目 思路 数字化选择方式\n纯手抄一个map\u0026lt;pair\u0026lt;int, int\u0026gt;, int\u0026gt; mp用来记录出拳结果。如mp[{2,0}] = 2;表示b赢了\n直接取余数组处理得到结果\n#include \u0026lt;bits/stdc++.h\u0026gt; using namespace std; int main() { // 0 表示 剪刀， // 1 表示 石头， // 2 表示 布， // 3 表示 蜥蜴人， // 4 表示 斯波克 // 结果0表示平局，1表示a赢，2表示b赢 map\u0026lt;pair\u0026lt;int, int\u0026gt;, int\u0026gt; mp; int n,na,nb; int result[3]={0}; //0无意义，1为a分数，2为b分数 cin \u0026gt;\u0026gt; n \u0026gt;\u0026gt; na \u0026gt;\u0026gt; nb; vector\u0026lt;int\u0026gt; a(na),b(nb); for (int i=0;i\u0026lt;na;i++) { cin \u0026gt;\u0026gt; a[i]; } for (int i=0;i\u0026lt;nb;i++) { cin \u0026gt;\u0026gt; b[i]; } for(int i=0;i\u0026lt;5;i++) { mp[{i,i}] = 0; } mp[{2,0}] = 2; mp[{3,0}] = 2; mp[{3,1}] = 2; mp[{4,2}] = 2; mp[{4,3}] = 2; mp[{1,0}] = 1; mp[{2,1}] = 1; mp[{3,2}] = 1; mp[{4,0}] = 1; mp[{4,1}] = 1; mp[{0,2}] = 1; mp[{0,3}] = 1; mp[{1,3}] = 1; mp[{2,4}] = 1; mp[{3,4}] = 1; mp[{0,1}] = 2; mp[{1,2}] = 2; mp[{2,3}] = 2; mp[{0,4}] = 2; mp[{1,4}] = 2; for(int i=0;i\u0026lt;n;i++) { int xi = i%na; int x = a[i%na]; int y = b[i%nb]; result[mp[{x,y}]]++; } cout \u0026lt;\u0026lt; result[1] \u0026lt;\u0026lt; \u0026#34; \u0026#34; \u0026lt;\u0026lt; result[2] \u0026lt;\u0026lt; endl; return 0; } 优化 看了别人的题解，大多是用一个二维[5][5]的数组存储对局输赢，后面处理简单一些。\n",
+  "keywords": [
+    "problem"
+  ],
+  "articleBody": "题目 思路 数字化选择方式\n纯手抄一个map",
+  "wordCount" : "173",
+  "inLanguage": "en",
+  "datePublished": "2025-09-23T00:00:00+08:00",
+  "dateModified": "2025-09-23T00:00:00+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://caoxuan5211.github.io/blog/p1328/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "怪话怪的博客",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://caoxuan5211.github.io/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
@@ -145,7 +283,7 @@ int main()
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="怪话怪的博客 (Alt + H)">怪话怪的博客</a>
+            <a href="https://caoxuan5211.github.io/" accesskey="h" title="怪话怪的博客 (Alt + H)">怪话怪的博客</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -171,7 +309,7 @@ int main()
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/search/" title="搜索">
+                <a href="https://caoxuan5211.github.io/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
@@ -269,14 +407,14 @@ int main()
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/problem/">Problem</a></li>
+      <li><a href="https://caoxuan5211.github.io/tags/problem/">Problem</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:1313/">怪话怪的博客</a></span> · 
+        <span>&copy; 2025 <a href="https://caoxuan5211.github.io/">怪话怪的博客</a></span> · 
 
     <span>
         Powered by
