@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>洛谷 P1393 | 怪话怪的博客</title>
 <meta name="keywords" content="problem">
 <meta name="description" content="题目
@@ -117,16 +117,16 @@ p&gt;&gt;1不会改变p的值应该是p&gt;&gt;=1
 int类型乘法要注意防止溢出，一般用ll
 ">
 <meta name="author" content="">
-<link rel="canonical" href="https://caoxuan5211.github.io/myblog/blog/p1393/">
-<link crossorigin="anonymous" href="/myblog/assets/css/stylesheet.5e935f5b7f487c9a071a7531301939cbc80dfe36e1273712cf831df2b5d805fc.css" integrity="sha256-XpNfW39IfJoHGnUxMBk5y8gN/jbhJzcSz4Md8rXYBfw=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://caoxuan5211.github.io/myblog/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://caoxuan5211.github.io/myblog/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://caoxuan5211.github.io/myblog/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://caoxuan5211.github.io/myblog/apple-touch-icon.png">
-<link rel="mask-icon" href="https://caoxuan5211.github.io/myblog/safari-pinned-tab.svg">
+<link rel="canonical" href="http://localhost:1313/blog/p1393/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5e935f5b7f487c9a071a7531301939cbc80dfe36e1273712cf831df2b5d805fc.css" integrity="sha256-XpNfW39IfJoHGnUxMBk5y8gN/jbhJzcSz4Md8rXYBfw=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://caoxuan5211.github.io/myblog/blog/p1393/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/blog/p1393/">
 <noscript>
     <style>
         #theme-toggle,
@@ -163,179 +163,7 @@ int类型乘法要注意防止溢出，一般用ll
         }
 
     </style>
-</noscript><meta property="og:url" content="https://caoxuan5211.github.io/myblog/blog/p1393/">
-  <meta property="og:site_name" content="怪话怪的博客">
-  <meta property="og:title" content="洛谷 P1393">
-  <meta property="og:description" content="题目 思路 状态转移矩阵T[i][j]其实就是添加一个字符之后从状态i转移到状态j的方案数量，也就是先用kmp得到对应的T然后对于长度为N的串只需要让这个转移矩阵N次方就行了，然后Tn[0][j]就是子串最大匹配到j位的方案数，所求结果就是Tn[0][0]一直加到Tn[0][M-1](M是子串的长度)。
-主要函数以及主要流程 矩阵相乘函数 矩阵快速幂函数(利用到矩阵相乘函数和快速幂算法) kmp算法(过于基础就不介绍了) 利用next函数得到基础转移矩阵T[m][n] 对T运用幂n函数得到Tn Tn按照思路直接操作就行了 题解（借鉴了AI，自己敲的，我太强了） #include&lt;bits/stdc&#43;&#43;.h&gt; using namespace std; typedef long long ll; // 得到next函数 vector&lt;int&gt; getNext(string pattern) { int m = pattern.size(); vector&lt;int&gt; next(m,0); for(int i=1,j=0;i&lt;m;i&#43;&#43;) { while(j!=0 &amp;&amp; pattern[i] != pattern[j]) j = next[j-1]; if(pattern[j] == pattern[i]) j&#43;&#43;; next[i] = j; } return next; } // 矩阵相乘函数 vector&lt;vector&lt;int&gt;&gt; matMul(vector&lt;vector&lt;int&gt;&gt; a,vector&lt;vector&lt;int&gt;&gt; b,int K) { int m = a.size(); vector&lt;vector&lt;int&gt;&gt; res(m,vector&lt;int&gt;(m,0)); //结果 for(int i=0;i&lt;m;i&#43;&#43;) // i-k,k-j { for(int k=0;k&lt;m;k&#43;&#43;) { if(a[i][k]!=0) //剪枝减小工作量 { for(int j=0;j&lt;m;j&#43;&#43;) { res[i][j] = (res[i][j] &#43; (ll)a[i][k] * b[k][j]) % K; } } } } return res; } // 矩阵幂函数(利用快速幂算法) vector&lt;vector&lt;int&gt;&gt; matPow(vector&lt;vector&lt;int&gt;&gt; a,int p,int K) { int m = a.size(); vector&lt;vector&lt;int&gt;&gt; res(m,vector&lt;int&gt;(m,0)); //结果 for(int i=0;i&lt;m;i&#43;&#43;) res[i][i] = 1; //单位矩阵用于起步 while(p!=0) { if(p &amp; 1) res = matMul(res,a,K); a = matMul(a,a,K); p &gt;&gt;= 1; // p /= 2 } return res; } int main() { int N,M,K; // M&lt;=20 N&lt;=1e9 K&lt;=10000,所以不能暴力解 cin &gt;&gt; N &gt;&gt; M &gt;&gt; K; string pattern; // 子串（此题中指的是不该出现的子串） cin &gt;&gt; pattern; // 求 pattern 的状态转移方程T[i][j] // 因为要用到pattern的next数组，所以先求next vector&lt;int&gt; next = getNext(pattern); vector&lt;vector&lt;int&gt;&gt; T(M,vector&lt;int&gt;(M,0)); // T[M][M],表示基础转移矩阵 for(int m=0;m&lt;M;m&#43;&#43;) // m为当前匹配数量,由于不准出现匹配到完整M的，所以最大长度为M-1 { for(int digit=0;digit&lt;=9;digit&#43;&#43;) // 尝试每一个数字,从而进行状态转移 { int cur = m; // 从当前位置开始回退 while(cur!=0 &amp;&amp; (pattern[cur]-&#39;0&#39;) != digit) cur = next[cur-1]; if((pattern[cur]-&#39;0&#39;) == digit) cur&#43;&#43;; if(cur &lt; M) T[m][cur] = (T[m][cur] &#43; 1) % K; } } // 得到完整的状态转移矩阵 vector&lt;vector&lt;int&gt;&gt; Tn = matPow(T,N,K); ll result = 0; for(int i=0;i&lt;M;i&#43;&#43;) { result = (result &#43; Tn[0][i]) % K; } cout &lt;&lt; result &lt;&lt; endl; return 0; } 遇到问题 p&gt;&gt;1不会改变p的值应该是p&gt;&gt;=1 int类型乘法要注意防止溢出，一般用ll ">
-  <meta property="og:locale" content="en-us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="blog">
-    <meta property="article:published_time" content="2025-09-23T12:57:20+08:00">
-    <meta property="article:modified_time" content="2025-09-23T12:57:20+08:00">
-    <meta property="article:tag" content="Problem">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="洛谷 P1393">
-<meta name="twitter:description" content="题目
-思路
-状态转移矩阵T[i][j]其实就是添加一个字符之后从状态i转移到状态j的方案数量，也就是先用kmp得到对应的T然后对于长度为N的串只需要让这个转移矩阵N次方就行了，然后Tn[0][j]就是子串最大匹配到j位的方案数，所求结果就是Tn[0][0]一直加到Tn[0][M-1](M是子串的长度)。
-主要函数以及主要流程
-
-矩阵相乘函数
-矩阵快速幂函数(利用到矩阵相乘函数和快速幂算法)
-kmp算法(过于基础就不介绍了)
-利用next函数得到基础转移矩阵T[m][n]
-对T运用幂n函数得到Tn
-Tn按照思路直接操作就行了
-
-题解（借鉴了AI，自己敲的，我太强了）
-#include&lt;bits/stdc&#43;&#43;.h&gt;
-
-using namespace std;
-
-typedef long long ll;
-
-// 得到next函数
-vector&lt;int&gt; getNext(string pattern)
-{
-    int m = pattern.size();
-    vector&lt;int&gt; next(m,0);
-    for(int i=1,j=0;i&lt;m;i&#43;&#43;)
-    {
-        while(j!=0 &amp;&amp; pattern[i] != pattern[j]) j = next[j-1];
-        if(pattern[j] == pattern[i]) j&#43;&#43;;
-        next[i] = j;
-    }
-    return next;
-}
-
-// 矩阵相乘函数
-vector&lt;vector&lt;int&gt;&gt; matMul(vector&lt;vector&lt;int&gt;&gt; a,vector&lt;vector&lt;int&gt;&gt; b,int K)
-{
-    int m = a.size();
-    vector&lt;vector&lt;int&gt;&gt; res(m,vector&lt;int&gt;(m,0)); //结果
-    for(int i=0;i&lt;m;i&#43;&#43;) // i-k,k-j
-    {
-        for(int k=0;k&lt;m;k&#43;&#43;)
-        {
-            if(a[i][k]!=0) //剪枝减小工作量
-            {
-                for(int j=0;j&lt;m;j&#43;&#43;)
-                {
-                    res[i][j] = (res[i][j] &#43; (ll)a[i][k] * b[k][j]) % K;
-                }
-            }
-        }
-    }
-    return res;
-}
-
-// 矩阵幂函数(利用快速幂算法)
-vector&lt;vector&lt;int&gt;&gt; matPow(vector&lt;vector&lt;int&gt;&gt; a,int p,int K)
-{
-    int m = a.size();
-    vector&lt;vector&lt;int&gt;&gt; res(m,vector&lt;int&gt;(m,0)); //结果
-    for(int i=0;i&lt;m;i&#43;&#43;) res[i][i] = 1; //单位矩阵用于起步
-    while(p!=0)
-    {
-        if(p &amp; 1) res = matMul(res,a,K);
-        a = matMul(a,a,K);
-        p &gt;&gt;= 1; // p /= 2
-    }
-    return res;
-}
-
-int main()
-{
-    int N,M,K;
-    // M&lt;=20 N&lt;=1e9 K&lt;=10000,所以不能暴力解
-    cin &gt;&gt; N &gt;&gt; M &gt;&gt; K;
-    string pattern; // 子串（此题中指的是不该出现的子串）
-    cin &gt;&gt; pattern;
-
-    // 求 pattern 的状态转移方程T[i][j]
-    // 因为要用到pattern的next数组，所以先求next
-    vector&lt;int&gt; next = getNext(pattern);
-    vector&lt;vector&lt;int&gt;&gt; T(M,vector&lt;int&gt;(M,0)); // T[M][M],表示基础转移矩阵
-    for(int m=0;m&lt;M;m&#43;&#43;) // m为当前匹配数量,由于不准出现匹配到完整M的，所以最大长度为M-1
-    { 
-        for(int digit=0;digit&lt;=9;digit&#43;&#43;) // 尝试每一个数字,从而进行状态转移
-        {
-            int cur = m; // 从当前位置开始回退
-            while(cur!=0 &amp;&amp; (pattern[cur]-&#39;0&#39;) != digit) cur = next[cur-1];
-            if((pattern[cur]-&#39;0&#39;) == digit) cur&#43;&#43;;
-            if(cur &lt; M) T[m][cur] = (T[m][cur] &#43; 1) % K;
-        }
-    }
-
-    // 得到完整的状态转移矩阵
-    vector&lt;vector&lt;int&gt;&gt; Tn = matPow(T,N,K);
-
-    ll result = 0;
-    for(int i=0;i&lt;M;i&#43;&#43;)
-    {
-        result = (result &#43; Tn[0][i]) % K;
-    }
-
-    cout &lt;&lt; result &lt;&lt; endl; 
-    return 0;
-}
-遇到问题
-
-p&gt;&gt;1不会改变p的值应该是p&gt;&gt;=1
-int类型乘法要注意防止溢出，一般用ll
-">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Blogs",
-      "item": "https://caoxuan5211.github.io/myblog/blog/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "洛谷 P1393",
-      "item": "https://caoxuan5211.github.io/myblog/blog/p1393/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "洛谷 P1393",
-  "name": "洛谷 P1393",
-  "description": "题目 思路 状态转移矩阵T[i][j]其实就是添加一个字符之后从状态i转移到状态j的方案数量，也就是先用kmp得到对应的T然后对于长度为N的串只需要让这个转移矩阵N次方就行了，然后Tn[0][j]就是子串最大匹配到j位的方案数，所求结果就是Tn[0][0]一直加到Tn[0][M-1](M是子串的长度)。\n主要函数以及主要流程 矩阵相乘函数 矩阵快速幂函数(利用到矩阵相乘函数和快速幂算法) kmp算法(过于基础就不介绍了) 利用next函数得到基础转移矩阵T[m][n] 对T运用幂n函数得到Tn Tn按照思路直接操作就行了 题解（借鉴了AI，自己敲的，我太强了） #include\u0026lt;bits/stdc++.h\u0026gt; using namespace std; typedef long long ll; // 得到next函数 vector\u0026lt;int\u0026gt; getNext(string pattern) { int m = pattern.size(); vector\u0026lt;int\u0026gt; next(m,0); for(int i=1,j=0;i\u0026lt;m;i++) { while(j!=0 \u0026amp;\u0026amp; pattern[i] != pattern[j]) j = next[j-1]; if(pattern[j] == pattern[i]) j++; next[i] = j; } return next; } // 矩阵相乘函数 vector\u0026lt;vector\u0026lt;int\u0026gt;\u0026gt; matMul(vector\u0026lt;vector\u0026lt;int\u0026gt;\u0026gt; a,vector\u0026lt;vector\u0026lt;int\u0026gt;\u0026gt; b,int K) { int m = a.size(); vector\u0026lt;vector\u0026lt;int\u0026gt;\u0026gt; res(m,vector\u0026lt;int\u0026gt;(m,0)); //结果 for(int i=0;i\u0026lt;m;i++) // i-k,k-j { for(int k=0;k\u0026lt;m;k++) { if(a[i][k]!=0) //剪枝减小工作量 { for(int j=0;j\u0026lt;m;j++) { res[i][j] = (res[i][j] + (ll)a[i][k] * b[k][j]) % K; } } } } return res; } // 矩阵幂函数(利用快速幂算法) vector\u0026lt;vector\u0026lt;int\u0026gt;\u0026gt; matPow(vector\u0026lt;vector\u0026lt;int\u0026gt;\u0026gt; a,int p,int K) { int m = a.size(); vector\u0026lt;vector\u0026lt;int\u0026gt;\u0026gt; res(m,vector\u0026lt;int\u0026gt;(m,0)); //结果 for(int i=0;i\u0026lt;m;i++) res[i][i] = 1; //单位矩阵用于起步 while(p!=0) { if(p \u0026amp; 1) res = matMul(res,a,K); a = matMul(a,a,K); p \u0026gt;\u0026gt;= 1; // p /= 2 } return res; } int main() { int N,M,K; // M\u0026lt;=20 N\u0026lt;=1e9 K\u0026lt;=10000,所以不能暴力解 cin \u0026gt;\u0026gt; N \u0026gt;\u0026gt; M \u0026gt;\u0026gt; K; string pattern; // 子串（此题中指的是不该出现的子串） cin \u0026gt;\u0026gt; pattern; // 求 pattern 的状态转移方程T[i][j] // 因为要用到pattern的next数组，所以先求next vector\u0026lt;int\u0026gt; next = getNext(pattern); vector\u0026lt;vector\u0026lt;int\u0026gt;\u0026gt; T(M,vector\u0026lt;int\u0026gt;(M,0)); // T[M][M],表示基础转移矩阵 for(int m=0;m\u0026lt;M;m++) // m为当前匹配数量,由于不准出现匹配到完整M的，所以最大长度为M-1 { for(int digit=0;digit\u0026lt;=9;digit++) // 尝试每一个数字,从而进行状态转移 { int cur = m; // 从当前位置开始回退 while(cur!=0 \u0026amp;\u0026amp; (pattern[cur]-\u0026#39;0\u0026#39;) != digit) cur = next[cur-1]; if((pattern[cur]-\u0026#39;0\u0026#39;) == digit) cur++; if(cur \u0026lt; M) T[m][cur] = (T[m][cur] + 1) % K; } } // 得到完整的状态转移矩阵 vector\u0026lt;vector\u0026lt;int\u0026gt;\u0026gt; Tn = matPow(T,N,K); ll result = 0; for(int i=0;i\u0026lt;M;i++) { result = (result + Tn[0][i]) % K; } cout \u0026lt;\u0026lt; result \u0026lt;\u0026lt; endl; return 0; } 遇到问题 p\u0026gt;\u0026gt;1不会改变p的值应该是p\u0026gt;\u0026gt;=1 int类型乘法要注意防止溢出，一般用ll ",
-  "keywords": [
-    "problem"
-  ],
-  "articleBody": "题目 思路 状态转移矩阵T[i][j]其实就是添加一个字符之后从状态i转移到状态j的方案数量，也就是先用kmp得到对应的T然后对于长度为N的串只需要让这个转移矩阵N次方就行了，然后Tn[0][j]就是子串最大匹配到j位的方案数，所求结果就是Tn[0][0]一直加到Tn[0][M-1](M是子串的长度)。\n主要函数以及主要流程 矩阵相乘函数 矩阵快速幂函数(利用到矩阵相乘函数和快速幂算法) kmp算法(过于基础就不介绍了) 利用next函数得到基础转移矩阵T[m][n] 对T运用幂n函数得到Tn Tn按照思路直接操作就行了 题解（借鉴了AI，自己敲的，我太强了） #include using namespace std; typedef long long ll; // 得到next函数 vector\u003cint\u003e getNext(string pattern) { int m = pattern.size(); vector\u003cint\u003e next(m,0); for(int i=1,j=0;i\u003cm;i++) { while(j!=0 \u0026\u0026 pattern[i] != pattern[j]) j = next[j-1]; if(pattern[j] == pattern[i]) j++; next[i] = j; } return next; } // 矩阵相乘函数 vector\u003cvector\u003cint\u003e\u003e matMul(vector\u003cvector\u003cint\u003e\u003e a,vector\u003cvector\u003cint\u003e\u003e b,int K) { int m = a.size(); vector\u003cvector\u003cint\u003e\u003e res(m,vector\u003cint\u003e(m,0)); //结果 for(int i=0;i\u003cm;i++) // i-k,k-j { for(int k=0;k\u003cm;k++) { if(a[i][k]!=0) //剪枝减小工作量 { for(int j=0;j\u003cm;j++) { res[i][j] = (res[i][j] + (ll)a[i][k] * b[k][j]) % K; } } } } return res; } // 矩阵幂函数(利用快速幂算法) vector\u003cvector\u003cint\u003e\u003e matPow(vector\u003cvector\u003cint\u003e\u003e a,int p,int K) { int m = a.size(); vector\u003cvector\u003cint\u003e\u003e res(m,vector\u003cint\u003e(m,0)); //结果 for(int i=0;i\u003cm;i++) res[i][i] = 1; //单位矩阵用于起步 while(p!=0) { if(p \u0026 1) res = matMul(res,a,K); a = matMul(a,a,K); p \u003e\u003e= 1; // p /= 2 } return res; } int main() { int N,M,K; // M\u003c=20 N\u003c=1e9 K\u003c=10000,所以不能暴力解 cin \u003e\u003e N \u003e\u003e M \u003e\u003e K; string pattern; // 子串（此题中指的是不该出现的子串） cin \u003e\u003e pattern; // 求 pattern 的状态转移方程T[i][j] // 因为要用到pattern的next数组，所以先求next vector\u003cint\u003e next = getNext(pattern); vector\u003cvector\u003cint\u003e\u003e T(M,vector\u003cint\u003e(M,0)); // T[M][M],表示基础转移矩阵 for(int m=0;m\u003cM;m++) // m为当前匹配数量,由于不准出现匹配到完整M的，所以最大长度为M-1 { for(int digit=0;digit\u003c=9;digit++) // 尝试每一个数字,从而进行状态转移 { int cur = m; // 从当前位置开始回退 while(cur!=0 \u0026\u0026 (pattern[cur]-'0') != digit) cur = next[cur-1]; if((pattern[cur]-'0') == digit) cur++; if(cur \u003c M) T[m][cur] = (T[m][cur] + 1) % K; } } // 得到完整的状态转移矩阵 vector\u003cvector\u003cint\u003e\u003e Tn = matPow(T,N,K); ll result = 0; for(int i=0;i\u003cM;i++) { result = (result + Tn[0][i]) % K; } cout \u003c\u003c result \u003c\u003c endl; return 0; } 遇到问题 p\u003e\u003e1不会改变p的值应该是p\u003e\u003e=1 int类型乘法要注意防止溢出，一般用ll ",
-  "wordCount" : "250",
-  "inLanguage": "en",
-  "datePublished": "2025-09-23T12:57:20+08:00",
-  "dateModified": "2025-09-23T12:57:20+08:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://caoxuan5211.github.io/myblog/blog/p1393/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "怪话怪的博客",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://caoxuan5211.github.io/myblog/favicon.ico"
-    }
-  }
-}
-</script>
+</noscript>
 </head>
 
 <body class="" id="top">
@@ -353,7 +181,7 @@ int类型乘法要注意防止溢出，一般用ll
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://caoxuan5211.github.io/myblog/" accesskey="h" title="怪话怪的博客 (Alt + H)">怪话怪的博客</a>
+            <a href="http://localhost:1313/" accesskey="h" title="怪话怪的博客 (Alt + H)">怪话怪的博客</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -379,7 +207,7 @@ int类型乘法要注意防止溢出，一般用ll
         </div>
         <ul id="menu">
             <li>
-                <a href="https://caoxuan5211.github.io/myblog/search/" title="搜索">
+                <a href="http://localhost:1313/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
@@ -513,14 +341,14 @@ int类型乘法要注意防止溢出，一般用ll
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://caoxuan5211.github.io/myblog/tags/problem/">Problem</a></li>
+      <li><a href="http://localhost:1313/tags/problem/">Problem</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="https://caoxuan5211.github.io/myblog/">怪话怪的博客</a></span> · 
+        <span>&copy; 2025 <a href="http://localhost:1313/">怪话怪的博客</a></span> · 
 
     <span>
         Powered by
