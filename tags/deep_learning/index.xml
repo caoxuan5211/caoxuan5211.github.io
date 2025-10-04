@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Deep_learning on 怪话怪的博客</title>
-    <link>https://caoxuan5211.github.io/tags/deep_learning/</link>
+    <link>http://localhost:1313/tags/deep_learning/</link>
     <description>Recent content in Deep_learning on 怪话怪的博客</description>
     <generator>Hugo -- 0.150.0</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 23 Sep 2025 20:14:23 +0800</lastBuildDate>
-    <atom:link href="https://caoxuan5211.github.io/tags/deep_learning/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/deep_learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>深度学习</title>
-      <link>https://caoxuan5211.github.io/blog/deep_learning/</link>
+      <link>http://localhost:1313/blog/deep_learning/</link>
       <pubDate>Tue, 23 Sep 2025 20:14:23 +0800</pubDate>
-      <guid>https://caoxuan5211.github.io/blog/deep_learning/</guid>
+      <guid>http://localhost:1313/blog/deep_learning/</guid>
       <description>&lt;h2 id=&#34;笔记&#34;&gt;笔记&lt;/h2&gt;
 &lt;h3 id=&#34;广播&#34;&gt;广播&lt;/h3&gt;</description>
     </item>

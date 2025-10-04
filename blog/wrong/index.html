@@ -5,11 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Problem | 怪话怪的博客</title>
+<title>hugo的github网页css显示失败问题 | 怪话怪的博客</title>
 <meta name="keywords" content="">
-<meta name="description" content="">
+<meta name="description" content="打开网页后出现异常
+当时github_pages生成的网页的css加载异常，F12用浏览器控制台看了之后发现是SRI不匹配问题。
+后来找到了这篇博客:hugo发布css无法加载问题 | Le blog de Lz0o0
+得以解决。">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/tags/problem/">
+<link rel="canonical" href="http://localhost:1313/blog/wrong/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
@@ -18,8 +21,7 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tags/problem/index.xml">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/tags/problem/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/blog/wrong/">
 <noscript>
     <style>
         #theme-toggle,
@@ -59,7 +61,7 @@
 </noscript>
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -107,27 +109,30 @@
         </ul>
     </nav>
 </header>
-<main class="main"> 
-<header class="page-header">
-  <h1>
-    Problem
-  </h1>
-</header>
+<main class="main">
 
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">洛谷 P1328
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>题目 思路 数字化选择方式
-纯手抄一个map&lt;pair&lt;int, int&gt;, int&gt; mp用来记录出拳结果。如mp[{2,0}] = 2;表示b赢了
-直接取余数组处理得到结果
-#include &lt;bits/stdc&#43;&#43;.h&gt; using namespace std; int main() { // 0 表示 剪刀， // 1 表示 石头， // 2 表示 布， // 3 表示 蜥蜴人， // 4 表示 斯波克 // 结果0表示平局，1表示a赢，2表示b赢 map&lt;pair&lt;int, int&gt;, int&gt; mp; int n,na,nb; int result[3]={0}; //0无意义，1为a分数，2为b分数 cin &gt;&gt; n &gt;&gt; na &gt;&gt; nb; vector&lt;int&gt; a(na),b(nb); for (int i=0;i&lt;na;i&#43;&#43;) { cin &gt;&gt; a[i]; } for (int i=0;i&lt;nb;i&#43;&#43;) { cin &gt;&gt; b[i]; } for(int i=0;i&lt;5;i&#43;&#43;) { mp[{i,i}] = 0; } mp[{2,0}] = 2; mp[{3,0}] = 2; mp[{3,1}] = 2; mp[{4,2}] = 2; mp[{4,3}] = 2; mp[{1,0}] = 1; mp[{2,1}] = 1; mp[{3,2}] = 1; mp[{4,0}] = 1; mp[{4,1}] = 1; mp[{0,2}] = 1; mp[{0,3}] = 1; mp[{1,3}] = 1; mp[{2,4}] = 1; mp[{3,4}] = 1; mp[{0,1}] = 2; mp[{1,2}] = 2; mp[{2,3}] = 2; mp[{0,4}] = 2; mp[{1,4}] = 2; for(int i=0;i&lt;n;i&#43;&#43;) { int xi = i%na; int x = a[i%na]; int y = b[i%nb]; result[mp[{x,y}]]&#43;&#43;; } cout &lt;&lt; result[1] &lt;&lt; &#34; &#34; &lt;&lt; result[2] &lt;&lt; endl; return 0; } 优化 看了别人的题解，大多是用一个二维[5][5]的数组存储对局输赢，后面处理简单一些。
-</p>
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      hugo的github网页css显示失败问题
+    </h1>
+    <div class="post-meta"><span title='2025-10-04 18:52:26 +0800 CST'>October 4, 2025</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>打开网页后出现异常</p>
+<p>当时github_pages生成的网页的css加载异常，<code>F12</code>用浏览器控制台看了之后发现是SRI不匹配问题。</p>
+<p>后来找到了这篇博客:<a href="https://lizhuo.space/zh/posts/error-logs/hugo%E5%8F%91%E5%B8%83%E5%90%8E%E4%BB%85%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BAcss%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD/">hugo发布css无法加载问题 | Le blog de Lz0o0</a></p>
+<p>得以解决。</p>
+
+
   </div>
-  <footer class="entry-footer"><span title='2025-09-23 00:00:00 +0800 CST'>September 23, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 洛谷 P1328" href="http://localhost:1313/blog/p1328/"></a>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
 </article>
     </main>
     

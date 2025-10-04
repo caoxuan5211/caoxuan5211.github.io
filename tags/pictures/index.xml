@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Pictures on 怪话怪的博客</title>
-    <link>https://caoxuan5211.github.io/tags/pictures/</link>
+    <link>http://localhost:1313/tags/pictures/</link>
     <description>Recent content in Pictures on 怪话怪的博客</description>
     <generator>Hugo -- 0.150.0</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 23 Sep 2025 00:00:00 +0800</lastBuildDate>
-    <atom:link href="https://caoxuan5211.github.io/tags/pictures/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/pictures/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>w</title>
-      <link>https://caoxuan5211.github.io/blog/first-blog/copy/</link>
+      <link>http://localhost:1313/blog/first-blog/copy/</link>
       <pubDate>Tue, 23 Sep 2025 00:00:00 +0800</pubDate>
-      <guid>https://caoxuan5211.github.io/blog/first-blog/copy/</guid>
+      <guid>http://localhost:1313/blog/first-blog/copy/</guid>
       <description>&lt;p&gt;（加图改md路径）&lt;/p&gt;</description>
     </item>
   </channel>
