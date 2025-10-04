@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Wrong on 怪话怪的博客</title>
-    <link>http://localhost:1313/categories/wrong/</link>
+    <link>https://caoxuan5211.github.io/categories/wrong/</link>
     <description>Recent content in Wrong on 怪话怪的博客</description>
     <generator>Hugo -- 0.150.0</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 04 Oct 2025 18:52:26 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/wrong/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://caoxuan5211.github.io/categories/wrong/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>hugo的github网页css显示失败问题</title>
-      <link>http://localhost:1313/blog/wrong/</link>
+      <link>https://caoxuan5211.github.io/blog/wrong/</link>
       <pubDate>Sat, 04 Oct 2025 18:52:26 +0800</pubDate>
-      <guid>http://localhost:1313/blog/wrong/</guid>
+      <guid>https://caoxuan5211.github.io/blog/wrong/</guid>
       <description>&lt;p&gt;打开网页后出现异常&lt;/p&gt;
 &lt;p&gt;当时github_pages生成的网页的css加载异常，&lt;code&gt;F12&lt;/code&gt;用浏览器控制台看了之后发现是SRI不匹配问题。&lt;/p&gt;
 &lt;p&gt;后来找到了这篇博客:&lt;a href=&#34;https://lizhuo.space/zh/posts/error-logs/hugo%E5%8F%91%E5%B8%83%E5%90%8E%E4%BB%85%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BAcss%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD/&#34;&gt;hugo发布css无法加载问题 | Le blog de Lz0o0&lt;/a&gt;&lt;/p&gt;

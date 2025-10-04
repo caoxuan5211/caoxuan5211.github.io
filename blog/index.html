@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Blogs | 怪话怪的博客</title>
 <meta name="keywords" content="">
 <meta name="description" content="Blogs - 怪话怪的博客">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/blog/">
+<link rel="canonical" href="https://caoxuan5211.github.io/blog/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://caoxuan5211.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://caoxuan5211.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://caoxuan5211.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://caoxuan5211.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://caoxuan5211.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/blog/index.xml">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/blog/">
+<link rel="alternate" type="application/rss+xml" href="https://caoxuan5211.github.io/blog/index.xml">
+<link rel="alternate" hreflang="en" href="https://caoxuan5211.github.io/blog/">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,7 +56,30 @@
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:url" content="https://caoxuan5211.github.io/blog/">
+  <meta property="og:site_name" content="怪话怪的博客">
+  <meta property="og:title" content="Blogs">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Blogs">
+<meta name="twitter:description" content="">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://caoxuan5211.github.io/blog/"
+    }
+  ]
+}
+</script>
 </head>
 
 <body class="list" id="top">
@@ -74,7 +97,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="怪话怪的博客 (Alt + H)">怪话怪的博客</a>
+            <a href="https://caoxuan5211.github.io/" accesskey="h" title="怪话怪的博客 (Alt + H)">怪话怪的博客</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -100,7 +123,7 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/search/" title="搜索">
+                <a href="https://caoxuan5211.github.io/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
@@ -127,7 +150,7 @@
 </p>
   </div>
   <footer class="entry-footer"><span title='2025-10-04 18:52:26 +0800 CST'>October 4, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to hugo的github网页css显示失败问题" href="http://localhost:1313/blog/wrong/"></a>
+  <a class="entry-link" aria-label="post link to hugo的github网页css显示失败问题" href="https://caoxuan5211.github.io/blog/wrong/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -142,7 +165,7 @@
 #include&lt;bits/stdc&#43;&#43;.h&gt; using namespace std; vector&lt;int&gt; getNext(const string &amp;pattern) { int m = pattern.size(); // 既可以用来初始化也可以作为循环出口 vector&lt;int&gt; next(m); next.push_back(0); // 一个字符无法匹配默认为0 int i=1; // 后缀匹配到的字符位置（只增不减） int p=0; // 记录当前最大前缀(末)位置(其实也就是p=next[0]) while(i&lt;m) { if(next[p] == next[i]) { p&#43;&#43;; // 缀数增加，要推进主串，同时构建next next.push_back(p); i&#43;&#43;; // 向后推进 } else // 后缀断连 { if(p == 0) // 没有回退空间（找不到更小前后缀）,保持缀数不变,继续推进 { i&#43;&#43;; } else { p = next[p-1]; // 前后缀长度回退，循环继续 } } } return next; } int main() { string text;// 原串 string pattern;// 要找的目标字符串 cin &gt;&gt; text; cin &gt;&gt; pattern; int n=text.size(); int m=pattern.size(); if(n &lt; m) return 0; //长度不符合标准 vector&lt;int&gt; next = getNext(text); // 这里只处理查找到第一个匹配串的位置，如果多个匹配点,重置变量(p),继续匹配不间断输出就行 int j=0; // pattern(副)串匹配到的位置 int i=0; // text(主)串匹配到的位置 while(j&lt;m) { if(pattern[j] == text[i]) { j&#43;&#43;; i&#43;&#43;; } else { if(j==0) // 无法回退 { i&#43;&#43;; // 向前推进 } else { j = next[j-1]; } } } // 这时i位于找到的子串所在位置后面一个 printf(&#34;第一个匹配的子串位置是[%d,%d]\n&#34;,i-m,i-1); // 输出所在区间 return 0; } </p>
   </div>
   <footer class="entry-footer"><span title='2025-09-25 19:30:11 +0800 CST'>September 25, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to KMP" href="http://localhost:1313/blog/kmp/"></a>
+  <a class="entry-link" aria-label="post link to KMP" href="https://caoxuan5211.github.io/blog/kmp/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -154,7 +177,7 @@
     <p>笔记 广播</p>
   </div>
   <footer class="entry-footer"><span title='2025-09-23 20:14:23 +0800 CST'>September 23, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 深度学习" href="http://localhost:1313/blog/deep_learning/"></a>
+  <a class="entry-link" aria-label="post link to 深度学习" href="https://caoxuan5211.github.io/blog/deep_learning/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -167,12 +190,12 @@
 主要函数以及主要流程 矩阵相乘函数 矩阵快速幂函数(利用到矩阵相乘函数和快速幂算法) kmp算法(过于基础就不介绍了) 利用next函数得到基础转移矩阵T[m][n] 对T运用幂n函数得到Tn Tn按照思路直接操作就行了 题解（借鉴了AI，自己敲的，我太强了） #include&lt;bits/stdc&#43;&#43;.h&gt; using namespace std; typedef long long ll; // 得到next函数 vector&lt;int&gt; getNext(string pattern) { int m = pattern.size(); vector&lt;int&gt; next(m,0); for(int i=1,j=0;i&lt;m;i&#43;&#43;) { while(j!=0 &amp;&amp; pattern[i] != pattern[j]) j = next[j-1]; if(pattern[j] == pattern[i]) j&#43;&#43;; next[i] = j; } return next; } // 矩阵相乘函数 vector&lt;vector&lt;int&gt;&gt; matMul(vector&lt;vector&lt;int&gt;&gt; a,vector&lt;vector&lt;int&gt;&gt; b,int K) { int m = a.size(); vector&lt;vector&lt;int&gt;&gt; res(m,vector&lt;int&gt;(m,0)); //结果 for(int i=0;i&lt;m;i&#43;&#43;) // i-k,k-j { for(int k=0;k&lt;m;k&#43;&#43;) { if(a[i][k]!=0) //剪枝减小工作量 { for(int j=0;j&lt;m;j&#43;&#43;) { res[i][j] = (res[i][j] &#43; (ll)a[i][k] * b[k][j]) % K; } } } } return res; } // 矩阵幂函数(利用快速幂算法) vector&lt;vector&lt;int&gt;&gt; matPow(vector&lt;vector&lt;int&gt;&gt; a,int p,int K) { int m = a.size(); vector&lt;vector&lt;int&gt;&gt; res(m,vector&lt;int&gt;(m,0)); //结果 for(int i=0;i&lt;m;i&#43;&#43;) res[i][i] = 1; //单位矩阵用于起步 while(p!=0) { if(p &amp; 1) res = matMul(res,a,K); a = matMul(a,a,K); p &gt;&gt;= 1; // p /= 2 } return res; } int main() { int N,M,K; // M&lt;=20 N&lt;=1e9 K&lt;=10000,所以不能暴力解 cin &gt;&gt; N &gt;&gt; M &gt;&gt; K; string pattern; // 子串（此题中指的是不该出现的子串） cin &gt;&gt; pattern; // 求 pattern 的状态转移方程T[i][j] // 因为要用到pattern的next数组，所以先求next vector&lt;int&gt; next = getNext(pattern); vector&lt;vector&lt;int&gt;&gt; T(M,vector&lt;int&gt;(M,0)); // T[M][M],表示基础转移矩阵 for(int m=0;m&lt;M;m&#43;&#43;) // m为当前匹配数量,由于不准出现匹配到完整M的，所以最大长度为M-1 { for(int digit=0;digit&lt;=9;digit&#43;&#43;) // 尝试每一个数字,从而进行状态转移 { int cur = m; // 从当前位置开始回退 while(cur!=0 &amp;&amp; (pattern[cur]-&#39;0&#39;) != digit) cur = next[cur-1]; if((pattern[cur]-&#39;0&#39;) == digit) cur&#43;&#43;; if(cur &lt; M) T[m][cur] = (T[m][cur] &#43; 1) % K; } } // 得到完整的状态转移矩阵 vector&lt;vector&lt;int&gt;&gt; Tn = matPow(T,N,K); ll result = 0; for(int i=0;i&lt;M;i&#43;&#43;) { result = (result &#43; Tn[0][i]) % K; } cout &lt;&lt; result &lt;&lt; endl; return 0; } 遇到问题 p&gt;&gt;1不会改变p的值应该是p&gt;&gt;=1 int类型乘法要注意防止溢出，一般用ll </p>
   </div>
   <footer class="entry-footer"><span title='2025-09-23 12:57:20 +0800 CST'>September 23, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 洛谷 P1393" href="http://localhost:1313/blog/p1393/"></a>
+  <a class="entry-link" aria-label="post link to 洛谷 P1393" href="https://caoxuan5211.github.io/blog/p1393/"></a>
 </article>
 
 <article class="post-entry"> 
 <figure class="entry-cover">
-        <img loading="lazy" src="http://localhost:1313/images/wanzi1.jp" alt="图丢了">
+        <img loading="lazy" src="https://caoxuan5211.github.io/images/wanzi1.jp" alt="图丢了">
 </figure>
   <header class="entry-header">
     <h2 class="entry-hint-parent">w
@@ -183,7 +206,7 @@
 </p>
   </div>
   <footer class="entry-footer"><span title='2025-09-23 00:00:00 +0800 CST'>September 23, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to w" href="http://localhost:1313/blog/first-blog/copy/"></a>
+  <a class="entry-link" aria-label="post link to w" href="https://caoxuan5211.github.io/blog/first-blog/copy/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -199,12 +222,12 @@
 </p>
   </div>
   <footer class="entry-footer"><span title='2025-09-23 00:00:00 +0800 CST'>September 23, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 洛谷 P1328" href="http://localhost:1313/blog/p1328/"></a>
+  <a class="entry-link" aria-label="post link to 洛谷 P1328" href="https://caoxuan5211.github.io/blog/p1328/"></a>
 </article>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:1313/">怪话怪的博客</a></span> · 
+        <span>&copy; 2025 <a href="https://caoxuan5211.github.io/">怪话怪的博客</a></span> · 
 
     <span>
         Powered by

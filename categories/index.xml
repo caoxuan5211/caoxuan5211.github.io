@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Categories on 怪话怪的博客</title>
-    <link>http://localhost:1313/categories/</link>
+    <link>https://caoxuan5211.github.io/categories/</link>
     <description>Recent content in Categories on 怪话怪的博客</description>
     <generator>Hugo -- 0.150.0</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 04 Oct 2025 18:52:26 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://caoxuan5211.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Wrong</title>
-      <link>http://localhost:1313/categories/wrong/</link>
+      <link>https://caoxuan5211.github.io/categories/wrong/</link>
       <pubDate>Sat, 04 Oct 2025 18:52:26 +0800</pubDate>
-      <guid>http://localhost:1313/categories/wrong/</guid>
+      <guid>https://caoxuan5211.github.io/categories/wrong/</guid>
       <description></description>
     </item>
     <item>
       <title>Blog</title>
-      <link>http://localhost:1313/categories/blog/</link>
+      <link>https://caoxuan5211.github.io/categories/blog/</link>
       <pubDate>Tue, 23 Sep 2025 12:57:20 +0800</pubDate>
-      <guid>http://localhost:1313/categories/blog/</guid>
+      <guid>https://caoxuan5211.github.io/categories/blog/</guid>
       <description></description>
     </item>
   </channel>

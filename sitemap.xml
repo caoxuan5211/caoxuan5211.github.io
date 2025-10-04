@@ -2,54 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/blog/</loc>
+    <loc>https://caoxuan5211.github.io/blog/</loc>
     <lastmod>2025-10-04T18:52:26+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://caoxuan5211.github.io/categories/</loc>
     <lastmod>2025-10-04T18:52:26+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/wrong/</loc>
+    <loc>https://caoxuan5211.github.io/blog/wrong/</loc>
     <lastmod>2025-10-04T18:52:26+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/wrong/</loc>
+    <loc>https://caoxuan5211.github.io/categories/wrong/</loc>
     <lastmod>2025-10-04T18:52:26+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://caoxuan5211.github.io/</loc>
     <lastmod>2025-10-04T18:52:26+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/kmp/</loc>
+    <loc>https://caoxuan5211.github.io/blog/kmp/</loc>
     <lastmod>2025-09-25T19:30:11+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/deep_learning/</loc>
+    <loc>https://caoxuan5211.github.io/tags/deep_learning/</loc>
     <lastmod>2025-09-23T20:14:23+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://caoxuan5211.github.io/tags/</loc>
     <lastmod>2025-09-23T20:14:23+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/deep_learning/</loc>
+    <loc>https://caoxuan5211.github.io/blog/deep_learning/</loc>
     <lastmod>2025-09-23T20:14:23+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/blog/</loc>
+    <loc>https://caoxuan5211.github.io/categories/blog/</loc>
     <lastmod>2025-09-23T12:57:20+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/luogu/</loc>
+    <loc>https://caoxuan5211.github.io/tags/luogu/</loc>
     <lastmod>2025-09-23T12:57:20+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/p1393/</loc>
+    <loc>https://caoxuan5211.github.io/blog/p1393/</loc>
     <lastmod>2025-09-23T12:57:20+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/pictures/</loc>
+    <loc>https://caoxuan5211.github.io/tags/pictures/</loc>
     <lastmod>2025-09-23T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/problem/</loc>
+    <loc>https://caoxuan5211.github.io/tags/problem/</loc>
     <lastmod>2025-09-23T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/first-blog/copy/</loc>
+    <loc>https://caoxuan5211.github.io/blog/first-blog/copy/</loc>
     <lastmod>2025-09-23T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/p1328/</loc>
+    <loc>https://caoxuan5211.github.io/blog/p1328/</loc>
     <lastmod>2025-09-23T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/search/</loc>
+    <loc>https://caoxuan5211.github.io/search/</loc>
   </url>
 </urlset>

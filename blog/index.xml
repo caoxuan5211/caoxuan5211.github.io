@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Blogs on 怪话怪的博客</title>
-    <link>http://localhost:1313/blog/</link>
+    <link>https://caoxuan5211.github.io/blog/</link>
     <description>Recent content in Blogs on 怪话怪的博客</description>
     <generator>Hugo -- 0.150.0</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 04 Oct 2025 18:52:26 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://caoxuan5211.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>hugo的github网页css显示失败问题</title>
-      <link>http://localhost:1313/blog/wrong/</link>
+      <link>https://caoxuan5211.github.io/blog/wrong/</link>
       <pubDate>Sat, 04 Oct 2025 18:52:26 +0800</pubDate>
-      <guid>http://localhost:1313/blog/wrong/</guid>
+      <guid>https://caoxuan5211.github.io/blog/wrong/</guid>
       <description>&lt;p&gt;打开网页后出现异常&lt;/p&gt;
 &lt;p&gt;当时github_pages生成的网页的css加载异常，&lt;code&gt;F12&lt;/code&gt;用浏览器控制台看了之后发现是SRI不匹配问题。&lt;/p&gt;
 &lt;p&gt;后来找到了这篇博客:&lt;a href=&#34;https://lizhuo.space/zh/posts/error-logs/hugo%E5%8F%91%E5%B8%83%E5%90%8E%E4%BB%85%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BAcss%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD/&#34;&gt;hugo发布css无法加载问题 | Le blog de Lz0o0&lt;/a&gt;&lt;/p&gt;
@@ -20,9 +20,9 @@
     </item>
     <item>
       <title>KMP</title>
-      <link>http://localhost:1313/blog/kmp/</link>
+      <link>https://caoxuan5211.github.io/blog/kmp/</link>
       <pubDate>Thu, 25 Sep 2025 19:30:11 +0800</pubDate>
-      <guid>http://localhost:1313/blog/kmp/</guid>
+      <guid>https://caoxuan5211.github.io/blog/kmp/</guid>
       <description>&lt;p&gt;感觉&lt;code&gt;KMP&lt;/code&gt;很简单就没练过，用的时候太不熟练，写个博客熟悉熟悉。&lt;/p&gt;
 &lt;p&gt;其实主要就是两部分，一个是确定&lt;code&gt;next&lt;/code&gt;数组，一个是利用&lt;code&gt;next&lt;/code&gt;找子串，这两部分大致思路很简单，有点异曲同工。&lt;/p&gt;
 &lt;p&gt;具体细节代码中注释已经说的很清楚了，不再赘述。&lt;/p&gt;
@@ -104,17 +104,17 @@
     </item>
     <item>
       <title>深度学习</title>
-      <link>http://localhost:1313/blog/deep_learning/</link>
+      <link>https://caoxuan5211.github.io/blog/deep_learning/</link>
       <pubDate>Tue, 23 Sep 2025 20:14:23 +0800</pubDate>
-      <guid>http://localhost:1313/blog/deep_learning/</guid>
+      <guid>https://caoxuan5211.github.io/blog/deep_learning/</guid>
       <description>&lt;h2 id=&#34;笔记&#34;&gt;笔记&lt;/h2&gt;
 &lt;h3 id=&#34;广播&#34;&gt;广播&lt;/h3&gt;</description>
     </item>
     <item>
       <title>洛谷 P1393</title>
-      <link>http://localhost:1313/blog/p1393/</link>
+      <link>https://caoxuan5211.github.io/blog/p1393/</link>
       <pubDate>Tue, 23 Sep 2025 12:57:20 +0800</pubDate>
-      <guid>http://localhost:1313/blog/p1393/</guid>
+      <guid>https://caoxuan5211.github.io/blog/p1393/</guid>
       <description>&lt;h2 id=&#34;题目&#34;&gt;&lt;a href=&#34;https://www.luogu.com.cn/problem/P3193&#34;&gt;题目&lt;/a&gt;&lt;/h2&gt;
 &lt;h3 id=&#34;思路&#34;&gt;思路&lt;/h3&gt;
 &lt;p&gt;状态转移矩阵&lt;code&gt;T[i][j]&lt;/code&gt;其实就是添加一个字符之后从状态&lt;em&gt;i&lt;/em&gt;转移到状态&lt;em&gt;j&lt;/em&gt;的方案数量，也就是先用&lt;code&gt;kmp&lt;/code&gt;得到对应的T然后对于长度为N的串只需要让这个转移矩阵&lt;em&gt;N&lt;/em&gt;次方就行了，然后&lt;code&gt;Tn[0][j]&lt;/code&gt;就是子串最大匹配到j位的方案数，所求结果就是&lt;code&gt;Tn[0][0]&lt;/code&gt;一直加到&lt;code&gt;Tn[0][M-1](M是子串的长度)&lt;/code&gt;。&lt;/p&gt;
@@ -227,16 +227,16 @@
     </item>
     <item>
       <title>w</title>
-      <link>http://localhost:1313/blog/first-blog/copy/</link>
+      <link>https://caoxuan5211.github.io/blog/first-blog/copy/</link>
       <pubDate>Tue, 23 Sep 2025 00:00:00 +0800</pubDate>
-      <guid>http://localhost:1313/blog/first-blog/copy/</guid>
+      <guid>https://caoxuan5211.github.io/blog/first-blog/copy/</guid>
       <description>&lt;p&gt;（加图改md路径）&lt;/p&gt;</description>
     </item>
     <item>
       <title>洛谷 P1328</title>
-      <link>http://localhost:1313/blog/p1328/</link>
+      <link>https://caoxuan5211.github.io/blog/p1328/</link>
       <pubDate>Tue, 23 Sep 2025 00:00:00 +0800</pubDate>
-      <guid>http://localhost:1313/blog/p1328/</guid>
+      <guid>https://caoxuan5211.github.io/blog/p1328/</guid>
       <description>&lt;h2 id=&#34;题目&#34;&gt;&lt;a href=&#34;https://www.luogu.com.cn/problem/P1328&#34;&gt;题目&lt;/a&gt;&lt;/h2&gt;
 &lt;h3 id=&#34;思路&#34;&gt;思路&lt;/h3&gt;
 &lt;ul&gt;
