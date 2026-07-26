@@ -128,7 +128,7 @@ function SiteHeader({
   return (
     <header className="site-header">
       <div className="shell site-header__row">
-        <a className="brand" href="/" aria-label="返回首页">
+        <a className="brand" href="/" aria-label={`${siteTitle}，返回首页`}>
           <span className="brand__mark">{siteTitle}</span>
           <span className="brand__cursor" aria-hidden="true" />
         </a>
@@ -239,7 +239,14 @@ function HomePage({ site, onSearch }: { site: SiteData; onSearch: () => void }) 
         <div className="hero__side" data-reveal>
           <figure className="portrait">
             <span className="portrait__tape" aria-hidden="true" />
-            <img src="/assets/images/wanzi1.jpg" alt="mineguai 的头像" fetchPriority="high" decoding="async" />
+            <img
+              src="/assets/images/wanzi1-720.jpg"
+              srcSet="/assets/images/wanzi1-720.jpg 720w, /assets/images/wanzi1.jpg 1440w"
+              sizes="(max-width: 900px) 92vw, 430px"
+              alt="mineguai 的头像"
+              fetchPriority="high"
+              decoding="async"
+            />
           </figure>
           {featured ? (
             <a className="latest-card" href={evidencePath(featured)}>

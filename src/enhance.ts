@@ -7,7 +7,30 @@ export function initContentEnhancements() {
   const manuscript = document.querySelector<HTMLElement>(".manuscript");
   if (!manuscript) return;
   enhanceCodeBlocks(manuscript);
+  initHeadingAnchors(manuscript);
   initLightbox(manuscript);
+}
+
+function initHeadingAnchors(scope: HTMLElement) {
+  scope.querySelectorAll<HTMLHeadingElement>("h2[id], h3[id], h4[id]").forEach((heading) => {
+    if (heading.querySelector(".heading-anchor")) return;
+    const anchor = document.createElement("a");
+    anchor.className = "heading-anchor";
+    anchor.href = `#${heading.id}`;
+    anchor.textContent = "#";
+    anchor.setAttribute("aria-label", `本节链接：${heading.textContent || heading.id}`);
+    anchor.addEventListener("click", async () => {
+      try {
+        const url = new URL(`#${heading.id}`, window.location.href).href;
+        await navigator.clipboard.writeText(url);
+        anchor.classList.add("is-copied");
+        window.setTimeout(() => anchor.classList.remove("is-copied"), 1200);
+      } catch {
+        /* 跳转本身仍然生效 */
+      }
+    });
+    heading.append(anchor);
+  });
 }
 
 function enhanceCodeBlocks(scope: HTMLElement) {

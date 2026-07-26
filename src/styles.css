@@ -92,7 +92,9 @@ html[data-theme="dark"] {
 
 @font-face {
   font-family: "Consolas Local";
-  src: url("/assets/fonts/consola.ttf") format("truetype");
+  src:
+    url("/assets/fonts/consola.woff2") format("woff2"),
+    url("/assets/fonts/consola.ttf") format("truetype");
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
@@ -2686,6 +2688,39 @@ svg {
   border-color: color-mix(in srgb, var(--accent) 60%, transparent);
   color: #ffb38a;
   opacity: 1;
+}
+
+/* ---------------------------- heading anchors ----------------------------- */
+
+.heading-anchor {
+  margin-left: 0.4em;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72em;
+  vertical-align: 0.12em;
+  opacity: 0;
+  transition: opacity 0.16s var(--ease-out), color 0.16s var(--ease-out);
+}
+
+.manuscript h2:hover .heading-anchor,
+.manuscript h3:hover .heading-anchor,
+.manuscript h4:hover .heading-anchor,
+.heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+.heading-anchor:hover {
+  color: var(--accent-ink);
+}
+
+.heading-anchor.is-copied {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.heading-anchor.is-copied::after {
+  content: " 已复制";
+  font-size: 0.82em;
 }
 
 /* ------------------------------- toc spy ---------------------------------- */

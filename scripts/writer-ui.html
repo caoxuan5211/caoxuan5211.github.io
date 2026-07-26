@@ -611,6 +611,7 @@
         mtimeMs: 0,
         dirty: false,
         previewTimer: 0,
+        draftTimer: 0,
         renderToken: 0,
         diskChangeNotice: false
       };
@@ -803,7 +804,8 @@
         state.dirty = true;
         state.diskChangeNotice = false;
         setStatus("未保存，已本地备份");
-        writeLocalDraft();
+        window.clearTimeout(state.draftTimer);
+        state.draftTimer = window.setTimeout(writeLocalDraft, 400);
         schedulePreview();
       };
 

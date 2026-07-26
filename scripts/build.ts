@@ -290,7 +290,15 @@ const renderMarkdown = async (markdown: string): Promise<string> => {
     // while preserving relative hierarchy (## must stay under #).
     .replace(/<h([1-5])(\b[^>]*)>/g, (_full, level: string, attrs: string) => `<h${Number(level) + 1}${attrs}>`)
     .replace(/<\/h([1-5])>/g, (_full, level: string) => `</h${Number(level) + 1}>`)
-    .replace(/<h([2-6])([^>]*)>\s*<\/h\1>/g, "");
+    .replace(/<h([2-6])([^>]*)>\s*<\/h\1>/g, "")
+    // External links open in a new tab without leaking the opener.
+    .replace(/<a\s([^>]*href="https?:\/\/[^"]*"[^>]*)>/g, (full, attrs: string) => {
+      if (attrs.includes(`href="${siteUrl}`)) return full;
+      let next = attrs;
+      if (!/\btarget=/.test(next)) next += ' target="_blank"';
+      if (!/\brel=/.test(next)) next += ' rel="noopener noreferrer"';
+      return `<a ${next}>`;
+    });
   return fixImagePaths(normalizedHeadings);
 };
 
@@ -429,6 +437,7 @@ const renderPage = async (route: RouteData, template: string, render: (route: Ro
   const socialMeta = [
     `<meta name="robots" content="${isNotFound ? "noindex,follow" : "index,follow,max-image-preview:large"}" />`,
     `<meta property="og:type" content="${isArticle ? "article" : "website"}" />`,
+    `<meta property="og:locale" content="zh_CN" />`,
     `<meta property="og:site_name" content="${escapeHtml(siteTitle)}" />`,
     `<meta property="og:title" content="${escapeHtml(title)}" />`,
     `<meta property="og:description" content="${escapeHtml(description)}" />`,
@@ -463,6 +472,7 @@ const writeFeeds = async (site: SiteData) => {
     .join("");
   await fs.writeFile(path.join(distDir, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`, "utf8");
 
+  const feedUrl = new URL("/rss.xml", siteUrl).href;
   const items = site.evidences
     .slice(0, 30)
     .map((evidence) => {
@@ -470,16 +480,40 @@ const writeFeeds = async (site: SiteData) => {
       return `<item><title>${escapeHtml(evidence.meta.title)}</title><link>${link}</link><guid>${link}</guid><pubDate>${new Date(evidence.meta.date).toUTCString()}</pubDate><description>${escapeHtml(evidence.plainText.slice(0, 180))}</description></item>`;
     })
     .join("");
-  await fs.writeFile(path.join(distDir, "rss.xml"), `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>${escapeHtml(siteTitle)}</title><link>${siteUrl}</link><description>${escapeHtml(siteDescription)}</description>${items}</channel></rss>`, "utf8");
+  const channelMeta = [
+    `<title>${escapeHtml(siteTitle)}</title>`,
+    `<link>${siteUrl}</link>`,
+    `<description>${escapeHtml(siteDescription)}</description>`,
+    "<language>zh-cn</language>",
+    `<lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`,
+    `<atom:link href="${feedUrl}" rel="self" type="application/rss+xml"/>`
+  ].join("");
+  await fs.writeFile(
+    path.join(distDir, "rss.xml"),
+    `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>${channelMeta}${items}</channel></rss>`,
+    "utf8"
+  );
 
-  const search = site.evidences.map((evidence) => ({
-    title: evidence.meta.title,
-    slug: evidence.meta.slug,
-    date: evidence.meta.date,
-    clues: evidence.meta.clues,
-    body: evidence.plainText
-  }));
-  await fs.writeFile(path.join(distDir, "search-index.json"), JSON.stringify(search), "utf8");
+  const llms = [
+    `# ${siteTitle}`,
+    "",
+    `> ${siteDescription}`,
+    "",
+    "## 文章",
+    "",
+    ...site.evidences.map((evidence) => {
+      const link = new URL(`/evidence/${evidence.meta.slug}/`, siteUrl).href;
+      return `- [${evidence.meta.title}](${link})：${evidence.plainText.slice(0, 80)}`;
+    }),
+    "",
+    "## 其他",
+    "",
+    `- [归档](${new URL("/dossier/", siteUrl).href})：全部文章列表`,
+    `- [标签](${new URL("/clues/", siteUrl).href})：按标签浏览`,
+    `- [RSS](${feedUrl})：订阅更新`,
+    ""
+  ].join("\n");
+  await fs.writeFile(path.join(distDir, "llms.txt"), llms, "utf8");
   await fs.writeFile(path.join(distDir, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${new URL("/sitemap.xml", siteUrl).href}\n`, "utf8");
 };
 
