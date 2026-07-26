@@ -2509,6 +2509,12 @@ svg {
   .entry-toc:focus-within {
     transform: translateX(0);
   }
+
+  /* The toc tab moves to the bottom-right corner here; lift the
+     back-to-top button so the two never overlap on article pages. */
+  body:has(.entry-toc) .back-top {
+    bottom: 8.75rem;
+  }
 }
 
 @media (max-width: 640px) {

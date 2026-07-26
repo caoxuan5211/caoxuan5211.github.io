@@ -174,9 +174,12 @@ const assetExists = async (urlPath: string): Promise<boolean> => {
 const missingImage = (src: string): string =>
   `<figure class="missing-evidence"><span>图片缺失</span><code>${escapeHtml(src)}</code></figure>`;
 
-const decorateImage = (tag: string): string => {
+const decorateImage = (tag: string, eager = false): string => {
   let next = tag;
-  if (!/\sloading=/.test(next)) next = next.replace("<img", '<img loading="lazy"');
+  if (!/\sloading=/.test(next)) {
+    // The first article image is usually the LCP element — load it eagerly.
+    next = next.replace("<img", eager ? '<img loading="eager" fetchpriority="high"' : '<img loading="lazy"');
+  }
   if (!/\sdecoding=/.test(next)) next = next.replace("<img", '<img decoding="async"');
   if (!/\salt=/.test(next)) next = next.replace("<img", '<img alt="文章配图"');
   return next;
@@ -186,14 +189,17 @@ const fixImagePaths = async (html: string): Promise<string> => {
   const pattern = /<img([^>]*?)src="([^"]+)"([^>]*)>/g;
   let output = "";
   let cursor = 0;
+  let imageIndex = 0;
 
   for (const match of html.matchAll(pattern)) {
     const [full, before, src, after] = match;
     output += html.slice(cursor, match.index);
     cursor = (match.index || 0) + full.length;
+    const eager = imageIndex === 0;
+    imageIndex += 1;
 
     if (/^https?:\/\//.test(src)) {
-      output += decorateImage(full);
+      output += decorateImage(full, eager);
       continue;
     }
 
@@ -204,17 +210,17 @@ const fixImagePaths = async (html: string): Promise<string> => {
 
     if (src.startsWith("/images/")) {
       const next = `/assets${src}`;
-      output += (await assetExists(next)) ? decorateImage(`<img${before}src="${next}"${after}>`) : missingImage(src);
+      output += (await assetExists(next)) ? decorateImage(`<img${before}src="${next}"${after}>`, eager) : missingImage(src);
       continue;
     }
 
     if (src.startsWith("images/")) {
       const next = `/assets/content/first-blog/${src.replace(/^images\//, "")}`;
-      output += (await assetExists(next)) ? decorateImage(`<img${before}src="${next}"${after}>`) : missingImage(src);
+      output += (await assetExists(next)) ? decorateImage(`<img${before}src="${next}"${after}>`, eager) : missingImage(src);
       continue;
     }
 
-    output += decorateImage(full);
+    output += decorateImage(full, eager);
   }
 
   return output + html.slice(cursor);

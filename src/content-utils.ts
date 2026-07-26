@@ -11,9 +11,9 @@ export const formatDate = (value: string): string => {
 };
 
 export const shortTitle = (title: string, max = 18): string => {
-  const trimmed = title.trim();
-  if (trimmed.length <= max) return trimmed;
-  return `${trimmed.slice(0, max)}…`;
+  const chars = Array.from(title.trim());
+  if (chars.length <= max) return chars.join("");
+  return `${chars.slice(0, max).join("")}…`;
 };
 
 export const byNewest = (items: EvidenceDocument[]): EvidenceDocument[] =>

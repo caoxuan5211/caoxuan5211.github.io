@@ -10,16 +10,10 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // Only apply to client build
+          // Only apply to client build; markdown/shiki only run at build time.
           if (id.includes('node_modules')) {
             if (id.includes('react') || id.includes('react-dom')) {
               return 'react-vendor';
-            }
-            if (id.includes('unified') || id.includes('remark') || id.includes('rehype')) {
-              return 'markdown';
-            }
-            if (id.includes('shiki')) {
-              return 'shiki';
             }
           }
         }

@@ -15,10 +15,7 @@ const navItems = [
 
 const THEME_KEY = "guai-theme";
 
-function readStoredTheme(): Theme {
-  if (typeof document === "undefined") return "light";
-  const attr = document.documentElement.getAttribute("data-theme");
-  if (attr === "dark" || attr === "light") return attr;
+function storedThemePreference(): Theme {
   try {
     const stored = window.localStorage.getItem(THEME_KEY);
     if (stored === "dark" || stored === "light") return stored;
@@ -26,6 +23,13 @@ function readStoredTheme(): Theme {
     /* ignore private-mode storage failures */
   }
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function readStoredTheme(): Theme {
+  if (typeof document === "undefined") return "light";
+  const attr = document.documentElement.getAttribute("data-theme");
+  if (attr === "dark" || attr === "light") return attr;
+  return storedThemePreference();
 }
 
 function applyTheme(theme: Theme) {
@@ -58,13 +62,39 @@ export function App({ route }: AppProps) {
     const initial = readStoredTheme();
     setTheme(initial);
     applyTheme(initial);
+
+    // The DOM snapshot can carry a stale theme: prerendered pages capture it
+    // at prerender time, bfcache restores capture it at leave time, and other
+    // tabs may change the preference. Re-sync from storage in those cases.
+    const sync = () => {
+      const stored = storedThemePreference();
+      setTheme(stored);
+      applyTheme(stored);
+    };
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) sync();
+    };
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === THEME_KEY) sync();
+    };
+    window.addEventListener("pageshow", onPageShow);
+    window.addEventListener("storage", onStorage);
+    if ((document as Document & { prerendering?: boolean }).prerendering) {
+      document.addEventListener("prerenderingchange", sync, { once: true });
+    }
+    return () => {
+      window.removeEventListener("pageshow", onPageShow);
+      window.removeEventListener("storage", onStorage);
+      document.removeEventListener("prerenderingchange", sync);
+    };
   }, []);
 
   useEffect(() => {
     const openSearch = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
       const typing = target?.tagName === "INPUT" || target?.tagName === "TEXTAREA" || target?.isContentEditable;
-      if (!typing && (event.key === "/" || ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k"))) {
+      const plainSlash = event.key === "/" && !event.ctrlKey && !event.metaKey && !event.altKey;
+      if (!typing && (plainSlash || ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k"))) {
         event.preventDefault();
         openCommand();
       }
