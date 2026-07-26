@@ -43,6 +43,12 @@ type PathPayload = {
   sourcePath?: string;
 };
 
+type UploadPayload = {
+  name?: string;
+  type?: string;
+  data?: string;
+};
+
 type DeployPayload = {
   message?: string;
 };
@@ -87,6 +93,7 @@ const contentTypeFor = (target: string) => {
   if (ext === ".png") return "image/png";
   if (ext === ".jpg" || ext === ".jpeg") return "image/jpeg";
   if (ext === ".webp") return "image/webp";
+  if (ext === ".gif") return "image/gif";
   if (ext === ".svg") return "image/svg+xml; charset=utf-8";
   if (ext === ".woff2") return "font/woff2";
   if (ext === ".ttf") return "font/ttf";
@@ -112,13 +119,13 @@ const errorJson = (error: unknown) => {
   };
 };
 
-const readBody = (req: http.IncomingMessage) =>
+const readBody = (req: http.IncomingMessage, limit = 2_000_000) =>
   new Promise<string>((resolve, reject) => {
     let body = "";
     req.setEncoding("utf8");
     req.on("data", (chunk) => {
       body += chunk;
-      if (body.length > 2_000_000) {
+      if (body.length > limit) {
         req.destroy();
         reject(new Error("请求体过大"));
       }
@@ -288,6 +295,50 @@ const renderMarkdownFile = (post: Required<Omit<PostPayload, "sourcePath">>) => 
   if (post.categories.length) lines.push(`categories = ${tomlArray(post.categories)}`);
   lines.push("+++", "", post.content.trimStart());
   return `${lines.join("\n").trimEnd()}\n`;
+};
+
+const uploadsDir = path.join(root, "site-public", "assets", "content", "uploads");
+const trashDir = path.join(root, ".cleanup-trash");
+
+const extForMime: Record<string, string> = {
+  "image/png": ".png",
+  "image/jpeg": ".jpg",
+  "image/webp": ".webp",
+  "image/gif": ".gif",
+  "image/svg+xml": ".svg"
+};
+
+const saveUpload = async (payload: UploadPayload) => {
+  const ext = extForMime[String(payload.type || "")];
+  if (!ext) throw new Error("只支持 png / jpg / webp / gif / svg 图片");
+  const base64 = String(payload.data || "").replace(/^data:[^;]+;base64,/, "");
+  const buffer = Buffer.from(base64, "base64");
+  if (!buffer.length) throw new Error("图片内容为空");
+  if (buffer.length > 15_000_000) throw new Error("图片超过 15MB");
+  const stamp = new Date();
+  const month = `${stamp.getFullYear()}-${String(stamp.getMonth() + 1).padStart(2, "0")}`;
+  const baseName = String(payload.name || "image")
+    .replace(/\.[a-z0-9]+$/i, "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}-]+/gu, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 40) || "image";
+  const fileName = `${baseName}-${Date.now().toString(36)}${ext}`;
+  const dir = path.join(uploadsDir, month);
+  await fs.mkdir(dir, { recursive: true });
+  await fs.writeFile(path.join(dir, fileName), buffer);
+  return { ok: true as const, url: `/assets/content/uploads/${month}/${fileName}`, bytes: buffer.length };
+};
+
+const deletePost = async (sourcePath: string) => {
+  const target = targetFromSourcePath(sourcePath);
+  await fs.access(target);
+  await fs.mkdir(trashDir, { recursive: true });
+  const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const destination = path.join(trashDir, `${stamp}-${path.basename(target)}`);
+  await fs.rename(target, destination);
+  return { ok: true as const, trashedTo: path.relative(root, destination).replace(/\\/g, "/") };
 };
 
 const savePost = async (payload: PostPayload) => {
@@ -545,6 +596,17 @@ const route = async (req: http.IncomingMessage, res: http.ServerResponse) => {
   if (req.method === "POST" && current.pathname === "/api/render") {
     const payload = JSON.parse(await readBody(req)) as Pick<PostPayload, "content">;
     sendJson(res, { html: await renderPreview(String(payload.content || "")) });
+    return;
+  }
+  if (req.method === "POST" && current.pathname === "/api/upload-image") {
+    const payload = JSON.parse(await readBody(req, 25_000_000)) as UploadPayload;
+    sendJson(res, await saveUpload(payload));
+    return;
+  }
+  if (req.method === "POST" && current.pathname === "/api/delete") {
+    const payload = JSON.parse(await readBody(req)) as PathPayload;
+    if (!payload.sourcePath) throw new Error("没有要删除的文章");
+    sendJson(res, await deletePost(payload.sourcePath));
     return;
   }
   if (req.method === "POST" && current.pathname === "/api/open-typora") {

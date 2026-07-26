@@ -532,11 +532,21 @@
           <input id="title" placeholder="标题" />
           <div class="toolbar">
             <div class="toolbar-group" aria-label="写作操作">
-              <button id="savePost" type="button" title="只保存当前 Markdown 文件">保存</button>
+              <button id="savePost" type="button" title="只保存当前 Markdown 文件 (Ctrl+S)">保存</button>
               <button id="openTypora" class="secondary" type="button">Typora</button>
               <button id="refreshPost" class="secondary" type="button">刷新</button>
               <button id="focusMode" class="secondary" type="button">专注</button>
               <button id="themeToggle" class="secondary" type="button">墨色</button>
+              <button id="deletePost" class="danger" type="button" title="删除当前文章（移入 .cleanup-trash 备份）">删除</button>
+            </div>
+            <div class="toolbar-group" aria-label="格式">
+              <button id="fmtBold" class="secondary" type="button" title="加粗 (Ctrl+B)"><strong>粗</strong></button>
+              <button id="fmtItalic" class="secondary" type="button" title="斜体 (Ctrl+I)"><em>斜</em></button>
+              <button id="fmtCode" class="secondary" type="button" title="行内代码">码</button>
+              <button id="fmtBlock" class="secondary" type="button" title="插入代码块">代码块</button>
+              <button id="fmtLink" class="secondary" type="button" title="插入链接 (Ctrl+K)">链接</button>
+              <button id="fmtImage" class="secondary" type="button" title="插入图片，也可以直接粘贴或拖入编辑器">图片</button>
+              <input id="imageFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml" hidden multiple />
             </div>
             <div class="toolbar-group" aria-label="构建发布">
               <button id="buildOnly" class="secondary" type="button" title="自动保存后执行 npm run build">构建</button>
@@ -627,9 +637,11 @@
         refreshPost: el("refreshPost"),
         focusMode: el("focusMode"),
         themeToggle: el("themeToggle"),
+        deletePost: el("deletePost"),
         buildOnly: el("buildOnly"),
         buildSite: el("buildSite"),
-        deploySite: el("deploySite")
+        deploySite: el("deploySite"),
+        imageFile: el("imageFile")
       };
 
       const deployDetails = fields.deployLog.closest("details");
@@ -733,6 +745,7 @@
         fields.savePost.disabled = busy;
         fields.openTypora.disabled = busy;
         fields.refreshPost.disabled = busy;
+        fields.deletePost.disabled = busy;
         fields.buildOnly.disabled = busy;
         fields.buildSite.disabled = busy;
         fields.deploySite.disabled = busy;
@@ -794,9 +807,18 @@
         schedulePreview();
       };
 
+      const readStats = (markdown) => {
+        const cjk = (markdown.match(/[一-鿿]/g) || []).length;
+        const words = (markdown.replace(/[一-鿿]/g, " ").match(/\b[\w-]+\b/g) || []).length;
+        return { chars: markdown.length, minutes: Math.max(1, Math.ceil((cjk + words) / 420)) };
+      };
+
       const renderPreview = async () => {
         const markdown = fields.content.value;
-        fields.counter.textContent = `${markdown.length} 字符`;
+        const stats = readStats(markdown);
+        fields.counter.textContent = markdown.trim()
+          ? `${stats.chars} 字符 · 约 ${stats.minutes} 分钟`
+          : "0 字符";
         if (!markdown.trim()) {
           fields.preview.textContent = "预览会显示在这里";
           return;
@@ -1051,6 +1073,86 @@
         }
       };
 
+      const insertAtCursor = (text) => {
+        const area = fields.content;
+        const { selectionStart: start, selectionEnd: end, value } = area;
+        area.value = value.slice(0, start) + text + value.slice(end);
+        const caret = start + text.length;
+        area.focus();
+        area.setSelectionRange(caret, caret);
+        markDirty();
+      };
+
+      const wrapSelection = (before, after = before, placeholder = "") => {
+        const area = fields.content;
+        const { selectionStart: start, selectionEnd: end, value } = area;
+        const selected = value.slice(start, end) || placeholder;
+        area.value = value.slice(0, start) + before + selected + after + value.slice(end);
+        const from = start + before.length;
+        area.focus();
+        area.setSelectionRange(from, from + selected.length);
+        markDirty();
+      };
+
+      const uploadImage = async (file) => {
+        if (!file || !file.type.startsWith("image/")) return;
+        setStatus(`正在上传 ${file.name || "图片"}`);
+        try {
+          const data = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => reject(new Error("读取图片失败"));
+            reader.readAsDataURL(file);
+          });
+          const response = await fetch("/api/upload-image", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: file.name, type: file.type, data })
+          });
+          const result = await response.json();
+          if (!response.ok) {
+            setStatus(result.error || "图片上传失败");
+            return;
+          }
+          const alt = (file.name || "图片").replace(/\.[^.]*$/, "");
+          insertAtCursor(`![${alt}](${result.url})\n`);
+          setStatus(`图片已上传到 ${result.url}`);
+        } catch (error) {
+          setStatus(error.message || String(error));
+        }
+      };
+
+      const uploadImageList = async (files) => {
+        for (const file of files) await uploadImage(file);
+      };
+
+      const deleteActivePost = async () => {
+        if (!state.activePath) {
+          setStatus("当前文章还没有保存，无需删除");
+          return;
+        }
+        const label = fields.title.value.trim() || state.activePath;
+        if (!confirm(`确定删除「${label}」吗？文件会移入 .cleanup-trash 备份，不会直接销毁。`)) return;
+        const response = await fetch("/api/delete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sourcePath: state.activePath })
+        });
+        const result = await response.json();
+        if (!response.ok) {
+          setStatus(result.error || "删除失败");
+          return;
+        }
+        clearLocalDraft(state.activePath);
+        state.activePath = "";
+        state.dirty = false;
+        await loadPosts();
+        if (!state.posts.length) {
+          fillPost({ sourcePath: "", title: "", date: new Date().toISOString(), draft: true, tags: [], categories: [], content: "" });
+        }
+        setStatus(`已删除，备份在 ${result.trashedTo}`);
+      };
+
       const pollDisk = async () => {
         if (!state.activePath) return;
         try {
@@ -1083,22 +1185,72 @@
       fields.buildOnly.addEventListener("click", saveAndBuild);
       fields.buildSite.addEventListener("click", saveAndPreview);
       fields.deploySite.addEventListener("click", saveAndDeploy);
+      fields.deletePost.addEventListener("click", deleteActivePost);
+      el("fmtBold").addEventListener("click", () => wrapSelection("**", "**", "加粗文字"));
+      el("fmtItalic").addEventListener("click", () => wrapSelection("*", "*", "斜体文字"));
+      el("fmtCode").addEventListener("click", () => wrapSelection("`", "`", "代码"));
+      el("fmtBlock").addEventListener("click", () => wrapSelection("\n```\n", "\n```\n", "在这里贴代码"));
+      el("fmtLink").addEventListener("click", () => wrapSelection("[", "](https://)", "链接文字"));
+      el("fmtImage").addEventListener("click", () => fields.imageFile.click());
+      fields.imageFile.addEventListener("change", async () => {
+        await uploadImageList(Array.from(fields.imageFile.files || []));
+        fields.imageFile.value = "";
+      });
+      fields.content.addEventListener("paste", (event) => {
+        const images = Array.from(event.clipboardData?.items || [])
+          .filter((item) => item.type.startsWith("image/"))
+          .map((item) => item.getAsFile())
+          .filter(Boolean);
+        if (!images.length) return;
+        event.preventDefault();
+        uploadImageList(images);
+      });
+      fields.content.addEventListener("dragover", (event) => {
+        if (Array.from(event.dataTransfer?.types || []).includes("Files")) event.preventDefault();
+      });
+      fields.content.addEventListener("drop", (event) => {
+        const images = Array.from(event.dataTransfer?.files || []).filter((file) => file.type.startsWith("image/"));
+        if (!images.length) return;
+        event.preventDefault();
+        uploadImageList(images);
+      });
+      fields.content.addEventListener("keydown", (event) => {
+        if (event.key === "Tab" && !event.ctrlKey && !event.metaKey && !event.altKey && !event.shiftKey) {
+          event.preventDefault();
+          insertAtCursor("  ");
+        }
+      });
       window.addEventListener("storage", (event) => {
         if (event.key === themeKey) applyTheme(event.newValue || "light");
       });
       window.addEventListener("keydown", (event) => {
         if (!(event.ctrlKey || event.metaKey)) return;
-        if (event.key.toLowerCase() === "s") {
+        const key = event.key.toLowerCase();
+        if (key === "s") {
           event.preventDefault();
           savePost();
         }
-        if (event.key.toLowerCase() === "j") {
+        if (key === "j") {
           event.preventDefault();
           setFocusMode(!document.body.classList.contains("focus-mode"));
         }
         if (event.key === "Enter") {
           event.preventDefault();
           saveAndPreview();
+        }
+        if (document.activeElement === fields.content) {
+          if (key === "b") {
+            event.preventDefault();
+            wrapSelection("**", "**", "加粗文字");
+          }
+          if (key === "i") {
+            event.preventDefault();
+            wrapSelection("*", "*", "斜体文字");
+          }
+          if (key === "k") {
+            event.preventDefault();
+            wrapSelection("[", "](https://)", "链接文字");
+          }
         }
       });
       window.setInterval(pollDisk, 2500);

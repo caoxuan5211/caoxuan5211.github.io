@@ -1310,7 +1310,7 @@ svg {
 /* On the home page each section reads as its own paper sheet, so the
    boundary between blocks is explicit rather than implied by spacing. */
 .home-page .section {
-  margin-block: clamp(2rem, 4.5vw, 3rem);
+  margin-block: clamp(1.5rem, 2.6vw, 2.2rem);
   padding: clamp(1.5rem, 3vw, 2.3rem) clamp(1.2rem, 3vw, 2.4rem) clamp(1.7rem, 3.2vw, 2.5rem);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
@@ -1464,113 +1464,6 @@ svg {
   font-weight: 700;
   letter-spacing: 0.04em;
   transform: rotate(-6deg);
-}
-
-/* -------------------------------- manifest -------------------------------- */
-
-.manifest {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  contain: paint;
-  margin-top: 1rem;
-  border-block: 1px solid var(--line-strong);
-  padding-block: clamp(1.6rem, 3.5vw, 2.4rem);
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--ink) 97%, #000),
-    color-mix(in srgb, var(--ink) 92%, #000) 50%,
-    color-mix(in srgb, var(--ink) 97%, #000)
-  );
-  color: color-mix(in srgb, var(--paper) 96%, #fff);
-}
-
-.manifest > .shell {
-  position: relative;
-  z-index: 1;
-}
-
-.manifest__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.manifest__head h2 {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: clamp(1.45rem, 2.6vw, 1.8rem);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1.12;
-}
-
-.manifest__more {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: color-mix(in srgb, var(--paper) 72%, transparent);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  white-space: nowrap;
-  transition: color 0.16s;
-}
-
-.manifest__more:hover {
-  color: var(--accent);
-}
-
-.manifest__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem 0.6rem;
-}
-
-.manifest__tags a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 2.35rem;
-  padding: 0.4rem 0.85rem;
-  border: 1px solid color-mix(in srgb, var(--paper) 16%, transparent);
-  border-radius: var(--radius-sm);
-  background: color-mix(in srgb, #fff 4%, transparent);
-  transition:
-    transform 0.18s var(--ease-out),
-    border-color 0.18s,
-    background 0.18s,
-    color 0.18s,
-    box-shadow 0.18s var(--ease-out);
-}
-
-.manifest__tags a:hover {
-  transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
-  color: var(--accent);
-  box-shadow: 0 8px 18px color-mix(in srgb, var(--accent) 16%, transparent);
-}
-
-.manifest__tags a:active {
-  transform: translateY(0) scale(0.98);
-}
-
-.manifest__tags strong {
-  font-size: 0.9rem;
-  font-weight: 650;
-  letter-spacing: -0.01em;
-}
-
-.manifest__tags span {
-  color: color-mix(in srgb, var(--paper) 50%, transparent);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-}
-
-.manifest__tags a:hover span {
-  color: color-mix(in srgb, var(--accent) 80%, #fff);
 }
 
 /* ------------------------------ inner pages ------------------------------- */

@@ -280,23 +280,23 @@ function HomePage({ site, onSearch }: { site: SiteData; onSearch: () => void }) 
         <PostRows posts={recent} />
       </section>
 
-      <section className="manifest" aria-labelledby="manifest-title">
-        <div className="shell" data-reveal>
-          <header className="manifest__head">
+      <section className="section shell" aria-labelledby="manifest-title">
+        <header className="section-head" data-reveal>
+          <div>
             <h2 id="manifest-title">标签</h2>
-            <a className="manifest__more" href="/clues/">
-              全部标签 <i aria-hidden="true">→</i>
+          </div>
+          <a className="section-head__more" href="/clues/">
+            全部标签 <i aria-hidden="true">→</i>
+          </a>
+        </header>
+        <nav className="tag-cloud" data-reveal aria-label="热门标签">
+          {site.clues.slice(0, 12).map((clue) => (
+            <a key={clue.slug} href={cluePath(clue.slug)}>
+              <strong>#{clue.name}</strong>
+              <span>{clue.count} 篇</span>
             </a>
-          </header>
-          <nav className="manifest__tags" aria-label="热门标签">
-            {site.clues.slice(0, 12).map((clue) => (
-              <a key={clue.slug} href={cluePath(clue.slug)}>
-                <strong>#{clue.name}</strong>
-                <span>{clue.count}</span>
-              </a>
-            ))}
-          </nav>
-        </div>
+          ))}
+        </nav>
       </section>
     </div>
   );
