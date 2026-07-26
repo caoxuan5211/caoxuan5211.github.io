@@ -1,0 +1,13 @@
+# 怪话怪
+
+> 算法笔记、工程记录、日常备忘。
+
+## 文章
+
+- [测试](https://blog.mineguai.com/evidence/%E6%88%91%E7%88%B1%E4%BD%A0/)：测试 测试.
+
+## 其他
+
+- [归档](https://blog.mineguai.com/dossier/)：全部文章列表
+- [标签](https://blog.mineguai.com/clues/)：按标签浏览
+- [RSS](https://blog.mineguai.com/rss.xml)：订阅更新
