@@ -91,6 +91,7 @@ export function App({ route }: AppProps) {
         <RouteSwitch route={route} onSearch={openCommand} />
       </main>
       <SiteFooter site={route.site} />
+      <BackToTop />
       <CommandPanel site={route.site} open={commandOpen} onClose={closeCommand} />
     </>
   );
@@ -238,7 +239,7 @@ function HomePage({ site, onSearch }: { site: SiteData; onSearch: () => void }) 
         <div className="hero__side" data-reveal>
           <figure className="portrait">
             <span className="portrait__tape" aria-hidden="true" />
-            <img src="/assets/images/wanzi1.jpg" alt="mineguai 的头像" />
+            <img src="/assets/images/wanzi1.jpg" alt="mineguai 的头像" fetchPriority="high" decoding="async" />
           </figure>
           {featured ? (
             <a className="latest-card" href={evidencePath(featured)}>
@@ -464,6 +465,40 @@ type TocHeading = { id: string; level: number; text: string };
 
 function EvidenceToc({ headings }: { headings: TocHeading[] }) {
   const [open, setOpen] = useState(false);
+  const [activeId, setActiveId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (headings.length < 2) return;
+    const nodes = headings
+      .map((heading) => document.getElementById(heading.id))
+      .filter((node): node is HTMLElement => Boolean(node));
+    if (!nodes.length) return;
+
+    let scheduled = false;
+    const update = () => {
+      scheduled = false;
+      const line = window.innerHeight * 0.28;
+      let current = nodes[0].id;
+      for (const node of nodes) {
+        if (node.getBoundingClientRect().top <= line) current = node.id;
+        else break;
+      }
+      setActiveId(current);
+    };
+    const onScroll = () => {
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [headings]);
+
   if (headings.length < 2) return null;
 
   return (
@@ -476,7 +511,13 @@ function EvidenceToc({ headings }: { headings: TocHeading[] }) {
         <ol>
           {headings.map((heading) => (
             <li key={heading.id} className={`toc-level-${heading.level}`}>
-              <a href={`#${heading.id}`}>{heading.text}</a>
+              <a
+                href={`#${heading.id}`}
+                className={heading.id === activeId ? "is-current" : undefined}
+                aria-current={heading.id === activeId ? "true" : undefined}
+              >
+                {heading.text}
+              </a>
             </li>
           ))}
         </ol>
@@ -654,6 +695,43 @@ function CommandPanel({ site, open, onClose }: { site: SiteData; open: boolean; 
   );
 }
 
+function BackToTop() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    let scheduled = false;
+    const update = () => {
+      scheduled = false;
+      setVisible(window.scrollY > 480);
+    };
+    const onScroll = () => {
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollTop = () => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+  };
+
+  return (
+    <button
+      className={`back-top${visible ? " is-visible" : ""}`}
+      type="button"
+      aria-label="回到顶部"
+      tabIndex={visible ? 0 : -1}
+      onClick={scrollTop}
+    >
+      <Icon name="arrow-up" />
+    </button>
+  );
+}
+
 /* --------------------------------- footer --------------------------------- */
 
 function SiteFooter({ site }: { site: SiteData }) {
@@ -740,6 +818,9 @@ function Icon({ name }: { name: string }) {
   }
   if (name === "close") {
     return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>;
+  }
+  if (name === "arrow-up") {
+    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" /></svg>;
   }
   if (name === "sun") {
     return (

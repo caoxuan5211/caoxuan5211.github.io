@@ -268,7 +268,9 @@ const renderMarkdown = async (markdown: string): Promise<string> => {
           const langClass = Array.isArray(className) ? className.find((item) => String(item).startsWith("language-")) : "";
           const lang = normalizeLang(String(langClass || "language-text").replace("language-", ""));
           const source = Array.isArray(code?.children) ? code.children.map((child: any) => child.value || "").join("") : "";
-          const highlighted = highlighter.codeToHtml(source, { lang: lang || "text", theme: "guai-ink" });
+          const highlighted = highlighter
+            .codeToHtml(source, { lang: lang || "text", theme: "guai-ink" })
+            .replace("<pre ", `<pre data-lang="${lang || "text"}" `);
           target.type = "raw";
           target.value = highlighted;
           delete target.tagName;
@@ -350,8 +352,22 @@ const loadSite = async (): Promise<SiteData> => {
 
 const writeGeneratedData = async (site: SiteData) => {
   await ensureDir(generatedDir);
-  const payload = `import type { SiteData } from "../types";\n\nexport const siteData: SiteData = ${JSON.stringify(site, null, 2)};\n`;
+  // The client bundle only needs metadata and search text: article HTML is
+  // restored from the server-rendered DOM at hydration time (see client.tsx),
+  // so the bundle stays flat as the number of posts grows.
+  const slim: SiteData = {
+    ...site,
+    evidences: site.evidences.map((evidence) => ({
+      ...evidence,
+      html: "",
+      plainText: evidence.plainText.slice(0, 4000)
+    }))
+  };
+  const payload = `import type { SiteData } from "../types";\n\nexport const siteData: SiteData = ${JSON.stringify(slim)};\n`;
   await fs.writeFile(path.join(generatedDir, "site-data.ts"), payload, "utf8");
+  // Full payload for the dev server, where there is no pre-rendered DOM to read from.
+  const fullPayload = `import type { SiteData } from "../types";\n\nexport const siteDataFull: SiteData = ${JSON.stringify(site)};\n`;
+  await fs.writeFile(path.join(generatedDir, "site-data-full.ts"), fullPayload, "utf8");
 };
 
 const writePublishAttributes = async () => {

@@ -22,6 +22,32 @@
         } catch (e) {}
       })();
     </script>
+    <script type="speculationrules">
+      {
+        "prefetch": [
+          {
+            "where": {
+              "and": [
+                { "href_matches": "/*" },
+                { "not": { "href_matches": ["/*.xml", "/*.json", "/*.txt"] } }
+              ]
+            },
+            "eagerness": "moderate"
+          }
+        ],
+        "prerender": [
+          {
+            "where": {
+              "and": [
+                { "href_matches": "/*" },
+                { "not": { "href_matches": ["/*.xml", "/*.json", "/*.txt"] } }
+              ]
+            },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
     <title>怪话怪</title>
   </head>
   <body>
