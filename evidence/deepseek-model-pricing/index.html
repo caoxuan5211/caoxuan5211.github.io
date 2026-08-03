@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f1e8" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="怪话怪 RSS" href="/rss.xml" />
+    <link rel="preload" href="/assets/fonts/LXGWWenKai-Regular-subset.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      (function () {
+        try {
+          var key = "guai-theme";
+          var stored = localStorage.getItem(key);
+          var theme = stored === "dark" || stored === "light"
+            ? stored
+            : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          document.documentElement.setAttribute("data-theme", theme);
+          document.documentElement.style.colorScheme = theme;
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute("content", theme === "dark" ? "#14120f" : "#f5f1e8");
+        } catch (e) {}
+      })();
+    </script>
+    <script type="speculationrules">
+      {
+        "prefetch": [
+          {
+            "where": {
+              "and": [
+                { "href_matches": "/*" },
+                { "not": { "href_matches": ["/*.xml", "/*.json", "/*.txt"] } }
+              ]
+            },
+            "eagerness": "moderate"
+          }
+        ],
+        "prerender": [
+          {
+            "where": {
+              "and": [
+                { "href_matches": "/*" },
+                { "not": { "href_matches": ["/*.xml", "/*.json", "/*.txt"] } }
+              ]
+            },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
+    <title>DeepSeek 模型定价 · 怪话怪</title>
+    <script type="module" crossorigin src="/assets/index-PSM1SG8Z.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/react-vendor-D1xwAsmG.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-CukcVORf.css">
+  <meta name="description" content="DeepSeek 模型定价 DeepSeek API 按 token 计费，价格单位是“每 100 万 tokens”（1M tokens）。token 是模型识别文本的最小单位，可以是一个词、一个数字或一个标点符号；实际费用按模型输入和输出的总 token 数计算。 截至 20" />
+<meta name="robots" content="index,follow,max-image-preview:large" />
+<meta property="og:type" content="article" />
+<meta property="og:locale" content="zh_CN" />
+<meta property="og:site_name" content="怪话怪" />
+<meta property="og:title" content="DeepSeek 模型定价 · 怪话怪" />
+<meta property="og:description" content="DeepSeek 模型定价 DeepSeek API 按 token 计费，价格单位是“每 100 万 tokens”（1M tokens）。token 是模型识别文本的最小单位，可以是一个词、一个数字或一个标点符号；实际费用按模型输入和输出的总 token 数计算。 截至 20" />
+<meta property="og:url" content="https://blog.mineguai.com/evidence/deepseek-model-pricing/" />
+<meta property="og:image" content="https://blog.mineguai.com/assets/images/wanzi1.jpg" />
+<meta property="og:image:alt" content="mineguai 的头像" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="DeepSeek 模型定价 · 怪话怪" />
+<meta name="twitter:description" content="DeepSeek 模型定价 DeepSeek API 按 token 计费，价格单位是“每 100 万 tokens”（1M tokens）。token 是模型识别文本的最小单位，可以是一个词、一个数字或一个标点符号；实际费用按模型输入和输出的总 token 数计算。 截至 20" />
+<meta name="twitter:image" content="https://blog.mineguai.com/assets/images/wanzi1.jpg" />
+<meta property="article:published_time" content="2026-08-03T02:00:00.000Z" />
+<meta property="article:modified_time" content="2026-08-03T02:00:00.000Z" />
+<link rel="canonical" href="https://blog.mineguai.com/evidence/deepseek-model-pricing/" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"DeepSeek 模型定价","description":"DeepSeek 模型定价 DeepSeek API 按 token 计费，价格单位是“每 100 万 tokens”（1M tokens）。token 是模型识别文本的最小单位，可以是一个词、一个数字或一个标点符号；实际费用按模型输入和输出的总 token 数计算。 截至 20","datePublished":"2026-08-03T02:00:00.000Z","dateModified":"2026-08-03T02:00:00.000Z","mainEntityOfPage":"https://blog.mineguai.com/evidence/deepseek-model-pricing/","image":"https://blog.mineguai.com/assets/images/wanzi1.jpg","author":{"@type":"Person","name":"mineguai","url":"https://blog.mineguai.com"},"publisher":{"@type":"Person","name":"mineguai","url":"https://blog.mineguai.com"},"keywords":"定价, AI, API, DeepSeek"}</script>
+</head>
+  <body>
+    <div id="root"><a class="skip-link" href="#content">跳到正文</a><div class="bg-noise" aria-hidden="true"></div><div class="scroll-progress" aria-hidden="true"></div><header class="site-header"><div class="shell site-header__row"><a class="brand" href="/" aria-label="怪话怪，返回首页"><span class="brand__mark">怪话怪</span><span class="brand__cursor" aria-hidden="true"></span></a><nav class="site-nav" aria-label="主导航"><a href="/"><strong>首页</strong></a><a href="/dossier/"><strong>归档</strong></a><a href="/clues/"><strong>标签</strong></a></nav><div class="site-header__tools"><button class="tool-button tool-button--search" type="button" aria-label="搜索"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path></svg><span>搜索</span></button><label class="rocker rocker-small" title="切换到深色"><span class="sr-only">切换明暗主题</span><input type="checkbox" aria-label="当前浅色，点击切换到深色"/><span class="switch-left" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.5 14.2A8.2 8.2 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"></path></svg></span><span class="switch-right" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg></span></label><button class="tool-button tool-button--icon" type="button" aria-expanded="false" aria-controls="mobile-nav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14"></path></svg><span class="sr-only">切换导航</span></button></div></div><div id="mobile-nav" class="mobile-nav-panel" hidden=""><a href="/"><strong>首页</strong></a><a href="/dossier/"><strong>归档</strong></a><a href="/clues/"><strong>标签</strong></a></div></header><main id="content" class="site-main"><article class="entry-shell shell"><header class="entry-hero" data-reveal="true"><div class="entry-hero__topline"><a class="entry-back" href="/dossier/">← 返回归档</a></div><h1>DeepSeek 模型定价</h1><div class="entry-hero__meta"><span>2026/08/03</span><span>2 分钟</span><a href="/clues/%E5%AE%9A%E4%BB%B7/">#<!-- -->定价</a><a href="/clues/ai/">#<!-- -->AI</a><a href="/clues/api/">#<!-- -->API</a><a href="/clues/deepseek/">#<!-- -->DeepSeek</a></div></header><div class="entry-body"><div class="manuscript"><h2 id="deepseek-模型定价">DeepSeek 模型定价</h2>
+<p>DeepSeek API 按 token 计费，价格单位是“每 100 万 tokens”（1M tokens）。token 是模型识别文本的最小单位，可以是一个词、一个数字或一个标点符号；实际费用按模型输入和输出的总 token 数计算。</p>
+<p>截至 2026-08-03，DeepSeek 官方 API 文档中的两个主要模型是 <code>deepseek-v4-flash</code> 和 <code>deepseek-v4-pro</code>，两者都支持 1M 上下文，最大输出 384K，并默认开启思考模式（thinking mode）。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>模型</th><th align="right">输入（缓存命中）</th><th align="right">输入（缓存未命中）</th><th align="right">输出</th></tr></thead><tbody><tr><td><code>deepseek-v4-flash</code></td><td align="right">$0.0028</td><td align="right">$0.14</td><td align="right">$0.28</td></tr><tr><td><code>deepseek-v4-pro</code></td><td align="right">$0.003625</td><td align="right">$0.435</td><td align="right">$0.87</td></tr></tbody></table>
+<p>上表价格均为每 1M tokens 的美元价格。以 <code>deepseek-v4-flash</code> 为例，一次请求消耗 100K 输入（未命中缓存）和 20K 输出，费用约为 <code>0.14 × 0.1 + 0.28 × 0.02 = 0.0196</code> 美元，也就是不到 2 美分。</p>
+<h3 id="缓存命中为什么便宜">缓存命中为什么便宜</h3>
+<p>DeepSeek 支持上下文缓存（context caching）。多轮对话或重复使用相同系统提示词、工具定义、长文档前缀时，命中缓存的部分会按“缓存命中”价格计费，成本可以大幅下降。</p>
+<p><code>deepseek-v4-flash</code> 的缓存命中价只有未命中价的约 1/50，<code>deepseek-v4-pro</code> 约 1/120。因此，如果业务中有大量重复前缀，尽量把稳定的内容放在请求前部，并保持 prompt 结构一致，更容易命中缓存。</p>
+<h3 id="高峰低谷定价">高峰低谷定价</h3>
+<p>官方文档还预告了高峰/低谷定价政策：高峰期价格可能是常规价格的 2 倍，适用于所有计费项。高峰时段为北京时间每天 9:00–12:00 和 14:00–18:00，具体生效日期以 DeepSeek 官方公告为准。</p>
+<p>对成本敏感的应用，可以在政策落地后把批量任务安排到非高峰时段，或者用缓存命中来对冲高峰期的输入成本。</p>
+<h3 id="扣费规则">扣费规则</h3>
+<p>费用 = token 数 × 单价，会直接从充值余额或赠送余额中扣除。两者都存在时，系统会优先使用赠送余额。</p>
+<p>DeepSeek 保留调整价格的权利，实际价格以官方页面为准：</p>
+<ul>
+<li><a href="https://api-docs.deepseek.com/zh-cn/quick_start/pricing" target="_blank" rel="noopener noreferrer">DeepSeek API 模型与价格</a></li>
+<li><a href="https://api-docs.deepseek.com/zh-cn/guides/kv_cache" target="_blank" rel="noopener noreferrer">Context Caching</a></li>
+</ul></div></div><aside class="entry-toc"><button class="entry-toc__tab" type="button" aria-expanded="false">目录</button><nav class="entry-toc__panel" aria-label="文章目录"><strong>本页目录</strong><ol><li class="toc-level-2"><a href="#deepseek-模型定价">DeepSeek 模型定价</a></li><li class="toc-level-3"><a href="#缓存命中为什么便宜">缓存命中为什么便宜</a></li><li class="toc-level-3"><a href="#高峰低谷定价">高峰低谷定价</a></li><li class="toc-level-3"><a href="#扣费规则">扣费规则</a></li></ol></nav></aside></article></main><footer class="site-footer"><div class="shell site-footer__row"><div class="site-footer__brand"><strong>怪话怪<span class="brand__cursor" aria-hidden="true"></span></strong></div><nav aria-label="页脚导航"><a href="/rss.xml">RSS</a><a href="/dossier/">归档</a><a href="/clues/">标签</a></nav><p class="site-footer__colophon">© 2026 mineguai · <!-- -->2<!-- --> 篇 · <!-- -->5<!-- --> 标签</p></div></footer><button class="back-top" type="button" aria-label="回到顶部" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"></path></svg></button></div>
+  </body>
+</html>

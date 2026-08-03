@@ -4,6 +4,7 @@
 
 ## 文章
 
+- [DeepSeek 模型定价](https://blog.mineguai.com/evidence/deepseek-model-pricing/)：DeepSeek 模型定价 DeepSeek API 按 token 计费，价格单位是“每 100 万 tokens”（1M tokens）。token 是模型
 - [测试](https://blog.mineguai.com/evidence/%E6%88%91%E7%88%B1%E4%BD%A0/)：测试 测试.
 
 ## 其他
